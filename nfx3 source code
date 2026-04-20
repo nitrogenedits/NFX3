@@ -7,6 +7,13 @@
 {if:{arg:0}|=|confusion|then:{set:ff|-vf "negate,huesaturation=hue=180:strength=100,crop=iw/2:ih:0:0,split[left][tmp];
 [tmp]hflip[right];
 [left][right]hstack" -af areverse}}
+{if:{arg:0}|=|g major|then:{set:ff|-vf negate -af "asplit=6[0][1][2][3][4][5];
+[1]rubberband=pitch=0.5:transients=mixed[s1];
+[2]rubberband=pitch=2^(-5/12):transients=mixed[s2];
+[3]rubberband=pitch=2^(4/12):transients=mixed[s3];
+[4]rubberband=pitch=2^(7/12):transients=mixed[s4];
+[5]rubberband=pitch=2:transients=mixed[s5];
+[0][s1][s2][s3][s4][s5]amix=6,volume=5,atrim=0.01"}}
 {if:{arg:0}|!=|help|then:{sh:
 load {iv}
 vidlen=$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv="p=0")
