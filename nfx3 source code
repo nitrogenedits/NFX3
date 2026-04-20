@@ -14,7 +14,7 @@
 [4]rubberband=pitch=2^(7/12):transients=mixed[s4];
 [5]rubberband=pitch=2:transients=mixed[s5];
 [0][s1][s2][s3][s4][s5]amix=6,volume=5,atrim=0.01"}}
-{if:[arg:0}|=|luig group|then:{set:ff|-vf huesaturation=hue=-62:strength=100 -af "rubberband=pitch=2^(-1.00877/12)",atrim=0.01}}
+{if:{arg:0}|=|luig group|then:{set:ff|-vf huesaturation=hue=-62:strength=100 -af "rubberband=pitch=2^(-1.00877/12)",atrim=0.01}}
 {if:{arg:0}|!=|help|then:{sh:
 load {iv}
 vidlen=$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv="p=0")
