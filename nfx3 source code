@@ -5,7 +5,7 @@
 {if:{arg:0}|=|invert hsi|then:{set:ff|-vf huesaturation=hue=180:strength=100}}
 {if:{arg:0}|=|invert rgb|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0}}
 {if:{arg:0}|=|invert|then:{set:ff|-vf negate}}
-{if:{arg:0}|=|confusion|then:{set:ff|-vf negate,huesaturation=hue=180:strength=100,crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack -af areverse}}
+{if:{arg:0}|=|confusion|then:{set:ff|-vf negate,huesaturation=hue=180:strength=100,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af areverse}}
 {if:{arg:0}|!=|help|then:{sh:
 load {iv}
 vidlen=$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv="p=0")
