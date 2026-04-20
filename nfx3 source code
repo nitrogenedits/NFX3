@@ -1,8 +1,8 @@
 {if:{argslen}|=|0|then:{js:console.error(`type something after \".t nfx3!\"`)}|else:
 {set:unix|{unix}}
 {if:{arg:0}|=|help|then:this command will be made after the first beta release}
-{if:{arg:1}|=|raw|then:```{get:ff}```}
 {if:{arg:0}|=|test|then:{set:ff|-vf hue=180}}
+{if:{arg:1}|=|raw|then:```{get:ff}```}
 {if:{arg:0}|!=|help|then:{sh:
 load {av}
 vidlen=$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv="p=0")
