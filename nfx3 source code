@@ -1,9 +1,9 @@
-{if:{id}|!=|1456643104944685158|then:{js:console.error(`NFX3 is still in development and can only be used by the creator!`)|else:{if:{argslen}|=|0|then:# NFX3 commands{newline}
+{if:{id}|!=|1456643104944685158|then:{js:console.error(`NFX3 is still in development and can only be used by the creator!`)}|else:{if:{argslen}|=|0|then:# NFX3 commands{newline}
 - help: shows the readme{newline}
 - "effect name": applies an effect to a video{newline}
 - "effect name" raw: shows the effect source code and applies it{newline}
 - list: this will be in a separate tag{newline}|else:{set:unix|{unix}}
-{if:{arg:0}|=|help|# NFX3
+{if:{arg}|=|help|# NFX3
 this is a bunch of effects with rather messy code compiled into one notsobot tag, just like my first NTFX+ and NitroFXV2. V2 kinda flopped tho
 # PRECAUTIONS
 - vocoder effects are NOT PRESENT in the bot!
@@ -22,8 +22,8 @@ FFmpeg and that's it. yup, purely FFmpeg. this is so you can have a **CLEAN** IH
 
 # CAN I FORK THIS REPO?
 um sure why not (just release your source code and you'll be fine)}
-{if:{arg:0}|=|testcode|then:{set:code|-vf hue=h=180}}
-{if:{arg:0}|!=|help|then:{sh:
+{if:{arg}|=|testcode|then:{set:code|-vf hue=h=180}}
+{if:{arg}|!=|help|then:{sh:
 load {av}
 vidlen=$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv="p=0")
 d=$vidlen
