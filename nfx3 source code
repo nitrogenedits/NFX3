@@ -3,14 +3,14 @@
 {if:{arg:0}|=|help|then:this command will be made after the first beta release}
 {if:{arg:0}|=|test|then:{set:ff|-vf hue=180}}
 {if:{arg:1}|=|raw|then:```{get:ff}```}
-{if:{arg:0}|!=|help|then:{sh:
+{if:{arg:0}|!=|help|then:{if:{arg:1}|!=|raw|then:{sh:
 load {iv}
 vidlen=$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv="p=0")
 d=$vidlen
 sr=$(ffprobe -v error -select_streams a:0 -show_entries stream=sample_rate -of default=nokey=1:noprint_wrappers=1 "$FILE_1" | tr -d '\n')
 w=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of default=nw=1:nk=1 $FILE_1)
 h=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of default=nw=1:nk=1 $FILE_1)
-ffmpeg -i $FILE_1 {get:ff} -pix_fmt yuv420p ./output/nitrofxv2.mp4}}
+ffmpeg -i $FILE_1 {get:ff} -pix_fmt yuv420p ./output/nitrofxv2.mp4}}}
 :construction: IN DEVELOPMENT
 -# time: {eval:{math:({unix}-{get:unix})/1000}}
 -# code user: {user}
