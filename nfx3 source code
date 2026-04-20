@@ -1,0 +1,34 @@
+{if:{id}|!=|1456643104944685158|then:{js:console.error(`NFX3 is still in development and can only be used by the creator!`)|else:{if:{argslen}|=|0|then:# NFX3 commands{newline}
+- help: shows the readme{newline}
+- "effect name": applies an effect to a video{newline}
+- "effect name" raw: shows the effect source code and applies it{newline}
+- list: this will be in a separate tag{newline}|else:{set:unix|{unix}}
+{if:{arg:0}|=|help|# NFX3
+this is a bunch of effects with rather messy code compiled into one notsobot tag, just like my first NTFX+ and NitroFXV2. V2 kinda flopped tho
+# PRECAUTIONS
+- vocoder effects are NOT PRESENT in the bot!
+- if you see a "geq" code with waves, ALWAYS use ".resize 640" before executing NFX3!
+
+# HOW DO I REQUEST AN EFFECT?
+send it on the "Issues" tab of the repo, https://github.com/nitrogenedits/NFX3, if you have GitHub.
+
+# WHAT DOES THE BOT USE?
+FFmpeg and that's it. yup, purely FFmpeg. this is so you can have a **CLEAN** IHTX without the audio clipping as much as in iscript.
+
+# WHAT SUBFUNCTIONS ARE THERE?
+- raw: to show the code of an effect
+- help: shows this readme
+- source: sends the link to the source code repository (this one)
+
+# CAN I FORK THIS REPO?
+um sure why not (just release your source code and you'll be fine)}
+{if:{arg:0}|=|testcode|then:{set:code|-vf hue=h=180}}
+{if:{arg:0}|!=|help|then:{sh:
+load {av}
+vidlen=$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv="p=0")
+d=$vidlen
+sr=$(ffprobe -v error -select_streams a:0 -show_entries stream=sample_rate -of default=nokey=1:noprint_wrappers=1 "$FILE_1" | tr -d '\n')
+w=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of default=nw=1:nk=1 $FILE_1)
+h=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of default=nw=1:nk=1 $FILE_1)
+ffmpeg -i $FILE_1 {get:code} -pix_fmt yuv420p ./output/nfx3.mp4}}
+}}}
