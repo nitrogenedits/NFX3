@@ -1,0 +1,1087 @@
+{iferror:{if:{tagname}|!=|nfx3|then:{js:console.error(`||<@1456643104944685158>|| you are currently using a stolen version of NFX3. the owner has been notified that you're trying to steal it. therefore, you get a warning.\ntrying to remove this message will only land you a permanent ban from NFX3.`)}|else:{if:{user}|=|indiaflag7|then:{js:console.error(`<@1456643104944685158> special ban message just for you :joy::v:`)}|else:{if:{argslen}|=|0|then:{embedjson:
+{"color":"{range:0|16777215}",
+"title":"NFX3 - HELP",
+"description":"**NFX3** (**N**itrogen's Effects [**FX**] **3**.0) is an FFmpeg/iscript effect tool made by nitrogen.\ndevelopment started on April 21 2026, Central European Summer Time\ncurrent version: 3.1b\ndevelopers: nitrogen\npartnering with TheKlaskyOrangeEffect136's effect tag, **OEFX+**\nspecial thanks to That Miracle Editor 1999, MediaNapoleon and OBLTOT513\n\n**COMMANDS**\n - `.t nfx3 \"effect name\"` - applies an effect. make sure you check .t nfx3/list on pages 1, 2 and 3.\n - `.t nfx3 \"effect name\" raw` - shows an effect's FFmpeg code - useful for tags like `icf+`. to show the audio codec, use `.t nfx3 \"effect name\" raw showcodec`, since icf+ audio will cause clipping if unspecified.\nenjoy using this effect bot!",
+"footer":{"text":"NFX3","icon_url":"https://file.garden/aftNWz23iVucvdJ5/d134a3151dd597402f051faf8d0886c2.3dcc984a.png"}}
+}|else:
+
+{set:banned|["mpgarv","appleapp0765_51828","saeed06338","alperozkarakoc","hdusgshs_67761","melon614","indiaflag7","idkanymore1234_1"]}
+{set:banCheck|{js:let user = discord.user.username;
+let bannedUsers = discord.variables.banned
+console.log(bannedUsers.includes(user))}}
+
+{set:seed|{range:1|10}}
+{set:gdlevels|{choose:bloodbath|bloodlust|yatagarasu|sonic wave|erebus|auditory breaker|vsc|acheron|tartarus|tidal wave|zodiac|unknown|cold sweat|open window}}
+
+{set:exceptions|["help","source"]}
+{set:excCheck|{js:let args = JSON.stringify(discord.variables.__args[0])
+let exc = discord.variables.exceptions
+console.log(exc.includes(args))}}
+
+{set:miracleSuggestions|["klasky opusc major","g major 44 cyrynix","$ormulator","miracle major 1","duh","crazy diamond","cute","apm group"]}
+{set:mirCheck|{js:let args = JSON.stringify(discord.variables.__args[0])
+let mir = discord.variables.miracleSuggestions
+console.log(mir.includes(args))}}
+{set:unixtime|{unix}}
+
+{if:{arg}|=|ffmpeg|then:
+{if:{arg:1}|=|invert ccs|then:{set:ff|-vf hue=180}}
+{if:{arg:1}|=|invert hsl|then:{set:ff|-vf movie=$(magick hald:6 -modulate 100,100,0 inv.ppm; echo inv.ppm),[in]haldclut}}
+{if:{arg:1}|=|invert rgb|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0}}
+{if:{arg:1}|=|invert|then:{set:ff|-vf negate}}
+{if:{arg:1}|=|confusion|then:{set:ff|-vf "negate,huesaturation=hue=180:strength=100,crop=iw/2:ih:0:0,split[left][tmp];
+[tmp]hflip[right];
+[left][right]hstack" -af areverse}}
+{if:{arg:1}|=|g major|then:{set:ff|-vf negate -af "asplit=6[0][1][2][3][4][5];
+[1]rubberband=pitch=0.5:transients=mixed[s1];
+[2]rubberband=pitch=2^(-5/12):transients=mixed[s2];
+[3]rubberband=pitch=2^(4/12):transients=mixed[s3];
+[4]rubberband=pitch=2^(7/12):transients=mixed[s4];
+[5]rubberband=pitch=2:transients=mixed[s5];
+[0][s1][s2][s3][s4][s5]amix=6,volume=5,atrim=0.01"}}
+{if:{arg:1}|=|luig group|then:{set:ff|-vf huesaturation=hue=-62:strength=100 -af "rubberband=pitch=2^(-1.00877/12)",atrim=0.01}}
+{if:{arg:1}|=|inverse luig group|then:{set:ff|-vf huesaturation=hue=62:strength=100 -af "rubberband=pitch=2^(1.00877/12)",atrim=0.01}}
+{if:{arg:1}|=|mari group|then:{set:ff|-vf huesaturation=hue=62:strength=100 -af "rubberband=pitch=2^(1.00877/12)",atrim=0.01}}
+{if:{arg:1}|=|g major 4|then:{set:ff|-vf curves=all='0/0 0.5/0.3 1/0' -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(5/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major 4 jamie shaffer|then:{set:ff|-vf selectivecolor=whites='0 0 0 1' -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(5/12):transients=crisp[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|goo goo gaa gaa|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0 -af rubberband=pitch=2,atrim=0.01}}
+{if:{arg:1}|=|green lowers|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=-79:strength=100 -af rubberband=pitch=0.5,atrim=0.01}}
+{if:{arg:1}|=|i killed x|then:{set:ff|-vf huesaturation=hue=-130:strength=100,format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "rubberband=pitch=2^(-8.13686/12)",atrim=0.01}}
+{if:{arg:1}|=|even x discontinues|then:{set:ff|-vf huesaturation=hue=-50:strength=100,format=yuv444p,scale=$h:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p,transpose=1,format=yuv444p,scale=640:640,"geq='p(X-((sin((T*5*2+(0*15))+(Y/H)*(PI*10)))*(-15*1)),Y-((sin((T*5*0+(0*15))+(X/W)*(PI*0)))*(-15*0)))'",scale=$w:$h,format=yuv420p,transpose=2,format=yuv444p,scale=$h:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((-90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((-90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "rubberband=pitch=2^(-7.01955/12)",atrim=0.01}}
+{if:{arg:1}|=|g major 74|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/LAB_Adjust_-_Invert_Luminosity.cube" -o ./invertluma.cube; echo ./invertluma.cube),format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(0.75)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(0.75)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "asplit=3[1][2][3];
+[1]rubberband=pitch=2^(-10/12)[s1];
+[2]rubberband=pitch=2^(9/12)[s2];
+[3]rubberband=pitch=2^(14/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|gigas|then:{set:ff|-vf negate,huesaturation=hue=148:strength=100 -af vibrato=4:0.5,vibrato=4:0.5,vibrato=4:0.5,vibrato=4:0.5,vibrato=4:0.5,"asplit=4[1][2][3][4];
+[1]rubberband=pitch=2^(-4/12)[s1];
+[2]rubberband=pitch=2^(-2/12)[s2];
+[3]rubberband=pitch=2^(2/12)[s3];
+[4]rubberband=pitch=2^(4/12)[s4];
+[s1][s2][s3][s4]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|100% g major|then:{set:ff|-vf huesaturation=hue=-52:strength=100,negate,selectivecolor=whites='0 -1 -1 1' -af "asplit=2[0][1];
+[1]rubberband=pitch=2[s1];
+[0][s1]amix=2,volume=2,atrim=0.011"}}
+{if:{arg:1}|=|100% g major 4|then:{set:ff|-vf huesaturation=hue=144:strength=100,selectivecolor=whites='0 -1 -1 1' -af "asplit=4[0][1][2][3];
+[1]rubberband=pitch=2^(5/12)[s1];
+[2]rubberband=pitch=2[s2];
+[3]rubberband=pitch=2^(17/12)[s3];
+[0][s1][s2][s3]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|a major|then:{set:ff|-vf huesaturation=hue=150:strength=100,negate,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",format=yuv444p,scale=$w:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.8)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.8)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "asplit=2[1][2];
+[1]rubberband=pitch=2^(10.66762/12)[s1];
+[2]rubberband=pitch=2^(5.68717/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|b major|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]hue=284,eq=contrast=1.25:brightness=0.25,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.35,format=bgr32,hue=b=-0.033[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p[v]" -af "rubberband=pitch=2^(4/12)",atrim=0.01,vibrato=20:0.3 -map [v] -map 0:a}}
+{if:{arg:1}|=|b major 3|then:{set:ff|-vf huesaturation=hue=-120:strength=100,transpose=1,format=yuv444p,scale=iw:ih,"geq='p(X,(Y+sin(400*T/5+X*11/100)*6))'","geq='p(X,(Y+sin(400*T/5+X*8/100)*8))'","geq='p(X,(Y+sin(400*T/5+X*10/100)*10))'","geq='p(X,(Y+sin(400*T/5+X*5/100)*14))'",scale=iw:ih,format=yuv420p,transpose=2 -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(1.82404/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|b major 2|then:{set:ff|-vf negate,huesaturation=hue=105:strength=100,format=yuv444p,scale=$w:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(3/12)[s1];
+[1]rubberband=pitch=2^(6/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|c major|then:{set:ff|-vf hue=100,eq=contrast=1.25:brightness=0.25,negate,format=yuv444p,scale=640:640,"geq='p(X-((sin((T*5*0+(0*15))+(Y/H)*(PI*5.4)))*(-15*2.5)),Y-((sin((T*5*0+(0*15))+(X/W)*(PI*5.4)))*(-15*2.5)))'",scale=$w:$h,format=yuv420p -af "rubberband=pitch=2^(2/12)",vibrato=9:0.02,vibrato=9:0.02,vibrato=9:0.02,vibrato=9:0.02,vibrato=9:0.02,tremolo=20:0.1}}
+{if:{arg:1}|=|d major|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Heat_Map.cube" -o ./heatmap.cube; echo ./heatmap.cube)}}
+{if:{arg:1}|=|d major 2|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Autotrophic_and_Heat_Map.cube" -o ./ahm.cube; echo ./ahm.cube) -af bass=gain=24,treble=gain=12}}
+{if:{arg:1}|=|f major|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]negate,hue=147,eq=contrast=1.25:brightness=0.25,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.35,format=bgr32,hue=b=-0.033[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p,format=yuv444p,scale=640:640,geq='p(X-((sin((T*5*0+(0*15))+(Y/H)*(PI*0)))*(-15*0)),Y-((sin((T*5*0+(0*15))+(X/W)*(PI*10)))*(-15*2)))',scale=$w:$h,format=yuv444p[v]" -af "rubberband=pitch=2^(-2/12)",vibrato=20:0.3,atrim=0.01 -map [v] -map 0:a}}
+{if:{arg:1}|=|g major 1|then:{set:ff|-vf negate,huesaturation=hue=180:strength=100 -af "rubberband=pitch=2^(8/12)",atrim=0.01}}
+{if:{arg:1}|=|g major 2|then:{set:ff|-vf negate,curves=blue='0/1 1/0' -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-5/12)[s1];
+[2]rubberband=pitch=2^(4/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|g major 3|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/G-Major_3_2014.cube" -o ./gm3.cube; echo ./gm3.cube),scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.65,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p[v]" -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-6/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|g major 5|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/G-Major_5_2014.cube" -o ./gm5.cube; echo ./gm5.cube) -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(4/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major 5 tnt2005|then:{set:ff|-vf negate,curves=red='0/1 1/0' -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(4/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major 6|then:{set:ff|-vf curves=all='0/0 0.78/0 0.81/1 1/1',convolution="-2 -1 0 -1 1 1 0 1 2:-2 -1 0 -1 1 1 0 1 2:-2 -1 0 -1 1 1 0 1 2:-2 -1 0 -1 1 1 0 1 2" -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-8/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major 7|then:{set:ff|-vf negate -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(2.81358/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|early g major 12|then:{set:ff|-vf huesaturation=hue=180:strength=100,format=yuv444p,scale=640:640,"geq='p(X,(Y+sin((-80/3)+X*5/100)*10))'",scale=$w:$h,format=yuv420p -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-7.01955/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|early g major 13|then:{set:ff|-vf negate,huesaturation=hue=-160:strength=100 -af "asplit=3[1][2][3];
+[1]rubberband=pitch=2^(-2/12)[s1];
+[2]rubberband=pitch=2^(2/12)[s2];
+[3]rubberband=pitch=2^(5/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|g major 21|then:{set:ff|-vf negate,eq=contrast=0.945:brightness=0.043,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/AVS4YOU_Posterize_Levels_-_4.cube" -o ./posterize.cube; echo ./posterize.cube) -af "asplit=4[0][1][2][3];
+[1]rubberband=pitch=2^(-3.15641/12)[s1];
+[2]rubberband=pitch=2^(1.82404/12)[s2];
+[3]rubberband=pitch=2^(3.86314/12)[s3];
+[0][s1][s2][s3]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|g major %|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/LAB_Adjust_-_Invert_Luminosity.cube" -o ./invertluma.cube; echo ./invertluma.cube),curves=all='0/0 0.5/1 1/0',hue=180 -af "asplit=4[0][1][2][3];
+[1]rubberband=pitch=2^(-6/12)[s1];
+[2]rubberband=pitch=2^(5/12)[s2];
+[3]rubberband=pitch=2^(9/12)[s3];
+[0][s1][s2][s3]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|g major 0|then:{set:ff|-vf huesaturation=hue=180:strength=100,curves=all='0/0 0.5/0.8 1/0' -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-10/12)[s1];
+[2]rubberband=pitch=2^(10/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|g major 8|then:{set:ff|-vf "curves=all=0/0 0.24/0 0.25/1 1/1,huesaturation=hue=180:saturation=1:strength=100,negate" -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-7.01955/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major 9|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/G-Major_9_OG.cube" -o ./gm9.cube; echo ./gm9.cube) -af "asplit=4[0][1][2][3];
+[1]rubberband=pitch=0.5[s1];
+[2]rubberband=pitch=2^(5/12)[s2];
+[3]rubberband=pitch=2^(7/12)[s3];
+[0][s1][s2][s3]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|g major 10|then:{set:ff|-vf "negate,huesaturation=hue=180:strength=100,colorchannelmixer=rr=0:rb=1:br=1:bb=0,crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=6[0][1][2][3][4][5];
+[1]rubberband=pitch=0.5[s1];
+[2]rubberband=pitch=2^(-5/12)[s2];
+[3]rubberband=pitch=2^(4/12)[s3];
+[4]rubberband=pitch=2^(7/12)[s4];
+[5]rubberband=pitch=2[s5];
+[0][s1][s2][s3][s4][s5]amix=6,volume=6,atrim=0.01","asplit=2[0][1];
+[1]rubberband=pitch=2^(-1/12)[s1];
+[0][s1]amix=2,volume=1.5,atrim=0.01"}}
+{if:{arg:1}|=|g major 11|then:{set:ff|-vf curves=all='0/0 0.24/0 0.25/1 1/1',hue=225,negate -af "asplit=4[0][1][2][3];
+[1]rubberband=pitch=2^(-5/12)[s1];
+[2]rubberband=pitch=2^(2/12)[s2];
+[3]rubberband=pitch=2^(7/12)[s3];
+[0][s1][s2][s3]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|g major 11 jayden|then:{set:ff|-vf hue=s=0,curves=all='0/1 0.5/1 1/0',hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "rubberband=pitch=2^(14/12)",atrim=0.01}}
+{if:{arg:1}|=|g major 12|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/BCC_Hue-Sat-Lightness_-_G-Major_12_OG.cube" -o ./gm12.cube; echo ./gm12.cube),selectivecolor=whites='0 0 0 1' -af "asplit=6[1][2][3][4][5][6];
+[1]rubberband=pitch=2^(-9/12)[s1];
+[2]rubberband=pitch=2^(-2/12)[s2];
+[3]rubberband=pitch=2^(3/12)[s3];
+[4]rubberband=pitch=2^(7/12)[s4];
+[5]rubberband=pitch=2^(10/12)[s5];
+[6]rubberband=pitch=2^(15/12)[s6];
+[s1][s2][s3][s4][s5][s6]amix=6,volume=6,atrim=0.01"}}
+{if:{arg:1}|=|g major 13|then:{set:ff|-vf selectivecolor=whites='0 0 0 1',colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=12:saturation=1:strength=100 -af "asplit=4[0][1][2][3];
+[1]rubberband=pitch=2^(4/12)[s1];
+[2]rubberband=pitch=2^(6/12)[s2];
+[3]rubberband=pitch=2[s3];
+[0][s1][s2][s3]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|g major 14|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/G-Major_14_OG.cube" -o ./gm14.cube; echo ./gm14.cube),"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack","crop=iw:ih/2:0:0,split[left][tmp];[tmp]vflip[right];[left][right]vstack" -af "asplit=3[0][1][2];
+[1]rubberband=pitch=0.5[s1];
+[2]rubberband=pitch=2^(16/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|g major 15|then:{set:ff|-vf format=yuv444p,scale=640:640,"geq='p(X,(Y+sin(X*5/100)*20))'",scale=$w:$h,format=yuv420p -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(5/12)[s1];
+[0][s1]amix=2,acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100,atrim=0.01"}}
+{if:{arg:1}|=|g major 16|then:{set:ff|-vf hflip,negate,huesaturation=hue=-150:strength=100 -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-2.86544/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major 17|then:{set:ff|-vf format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p,huesaturation=hue=-98:strength=100,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af volume=3,"asplit=2[0][1];
+[1]rubberband=pitch=2^(3/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major 18|then:{set:ff|-vf huesaturation=saturation=1:strength=100 -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-8/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major 19|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=-160:strength=100,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=2[1][2];
+[1]rubberband=pitch=2^(-1/12)[s1];
+[2]rubberband=pitch=2^(2/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major 20|then:{set:ff|-vf "split=2[v1][v2];
+[v1]crop=iw/2:ih:0:0[1v];
+[v2]hflip,crop=iw/2:ih:0:0,hflip,huesaturation=hue=-62:strength=100[2v];
+[1v][2v]hstack" -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-1.00877/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|fix! 2|then:{set:ff|-vf huesaturation=hue=180:strength=100 -af "rubberband=pitch=2^(-4/12)",atrim=0.01}}
+{if:{arg:1}|=|g major fix 2|then:`.t nfx3 "g major"` then `.t nfx3 "fix! 2"`}
+{if:{arg:1}|=|g major diamondwindows|then:{set:ff|-vf hue=s=0,"curves=r=0/0 1/1:g=0/0 1/0:b=0/0 1/0",transpose=1,format=yuv444p,scale=640:640,"geq='p(X,(Y+sin(-400*T/19+X*7/100)*10))'",format=yuv420p,transpose=2,scale=$w:$h -af "asplit=7[0][1][2][3][4][5][6];
+[1]rubberband=pitch=2^(-13/12)[s1];
+[2]rubberband=pitch=2^(-10/12)[s2];
+[3]rubberband=pitch=2^(-7/12)[s3];
+[4]rubberband=pitch=2^(-4/12)[s4];
+[5]rubberband=pitch=2^(4/12)[s5];
+[6]rubberband=pitch=2^(7/12)[s6];
+[0][s1][s2][s3][s4][s5][s6]amix=7,volume=6,atrim=0.01"}}
+{if:{arg:1}|=|g major logo the pizza pie|then:{set:ff|-vf negate,transpose=1,format=yuv444p,scale=640:640,"geq='p(X,(Y+sin(400*T/19+X*6/100)*8.5))'","geq='p(X,(Y+sin(400*T/10+X*5/100)*17.5))'",format=yuv420p,transpose=2,scale=$w:$h -af "asplit=7[0][1][2][3][4][5][6];
+[1]rubberband=pitch=2^(-23/12)[s1];
+[2]rubberband=pitch=2^(-11/12)[s2];
+[3]rubberband=pitch=2^(-3.15641/12)[s3];
+[4]rubberband=pitch=2^(0.88801/12)[s4];
+[5]rubberband=pitch=2^(4.98045/12)[s5];
+[6]rubberband=pitch=2^(12.70672/12)[s6];
+[0][s1][s2][s3][s4][s5][s6]amix=7,volume=6,atrim=0.01"}}
+{if:{arg:1}|=|ive g major|then:{set:ff|-vf hue=s=0,"curves=r=0/0 0.25/1 0.5/0 0.75/1 1/1:g=0/0 0.25/0 0.5/0 0.75/0 1/1:b=0/0 0.25/0 0.5/0 0.75/0 1/0" -af "asplit=7[0][1][2][3][4][5][6];
+[1]rubberband=pitch=2^(-12/12)[s1];
+[2]rubberband=pitch=2^(-7/12)[s2];
+[3]rubberband=pitch=2^(-4/12)[s3];
+[4]rubberband=pitch=2^(-2/12)[s4];
+[5]rubberband=pitch=2^(2/12)[s5];
+[6]rubberband=pitch=2^(4/12)[s6];
+[0][s1][s2][s3][s4][s5][s6]amix=7,volume=6,atrim=0.01"}}
+{if:{arg:1}|=|g major zyber9|then:{set:ff|-vf negate -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-2/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major 4 lolman|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/VEGAS_Color_Curves_-_Infrared_Green.cube" -o ./infrared.cube; echo ./infrared.cube) -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(5/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major mirror top|then:{set:ff|-vf negate,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack","crop=iw:ih/2:0:0,split[left][tmp];[tmp]vflip[right];[left][right]vstack","setpts=PTS/2",fps=$fr -af rubberband=tempo=2}}
+{if:{arg:1}|=|l major|then:{set:ff|-vf negate,huesaturation=hue=-6:strength=100 -af "asplit=4[1][2][3][4];
+[1]rubberband=pitch=2^(-8.13686/12)[s1];
+[2]rubberband=pitch=2^(-5.82512/12)[s2];
+[3]rubberband=pitch=2^(3.86314/12)[s3];
+[4]rubberband=pitch=2^(8.84359/12)[s4];
+[s1][s2][s3][s4]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|l major 5|then:{set:ff|-vf huesaturation=hue=-50:strength=100,transpose=1,format=yuv444p,scale=640:640,"geq='p(X,(Y+sin(-400*T/35+X*1/100)*10))'",format=yuv420p,transpose=2,scale=$w:$h-af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(2.01747/12)[s1];
+[2]rubberband=pitch=2^(-1.96198/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|o major|then:{set:ff|-vf negate,huesaturation=hue=54:strength=100,vflip,"crop=iw:ih/2:0:0,split[left][tmp];[tmp]vflip[right];[left][right]vstack" -af "asplit=3[0][1][2];
+[0]rubberband=pitch=2^(-3/12)[s1];
+[1]rubberband=pitch=2^(-2/12)[s2];
+[2]rubberband=pitch=2^(-1/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|p major|then:{set:ff|-vf negate,huesaturation=hue=180:strength=100,transpose=1,format=yuv444p,scale=640:640,"geq='p(X,(Y+sin(-400*T/35+X*5/100)*10))'",scale=$w:$h,format=yuv420p,transpose=2 -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(3.86314/12)[s1];
+[1]rubberband=pitch=2^(-5.82512/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|s major|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]hue=313,eq=contrast=1.25:brightness=0.25,negate,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.35,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p,scale=640:640,geq='p(X-((sin((T*5*0+(0*15))+(Y/H)*(PI*5.4)))*(-15*2.5)),Y-((sin((T*5*0+(0*15))+(X/W)*(PI*5.4)))*(-15*2.5)))',scale=$w:$h,format=yuv444p[v]" -af "rubberband=pitch=2^(-10/12)",atrim=0.01,vibrato=9:0.02,vibrato=9:0.02,vibrato=9:0.02,vibrato=9:0.02,vibrato=9:0.02,vibrato=20:0.3 -map [v] -map 0:a}}
+{if:{arg:1}|=|t major|then:{set:ff|-vf hue=h=180:s=1.286,eq=contrast=1.25:brightness=0.25,negate -af "rubberband=pitch=2^(10/12)",atrim=0.01}}
+{if:{arg:1}|=|u major|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]hflip,negate,colorchannelmixer=rr=0:rb=1:br=1:bb=0,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.35,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p[v]" -af "asplit=3[0][1][2];
+[0]rubberband=pitch=2^(4/12)[s1];
+[1]rubberband=pitch=2^(5/12)[s2];
+[2]rubberband=pitch=2^(6/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|u major 15|then:{set:ff|-vf format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(0.223)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(0.223)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p,colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=36:strength=100 -af "asplit=5[1][2][3][4][5];
+[1]rubberband=pitch=2^(2/12)[s1];
+[2]rubberband=pitch=2^(3/12)[s2];
+[3]rubberband=pitch=2^(4/12)[s3];
+[4]rubberband=pitch=2^(5/12)[s4];
+[5]rubberband=pitch=2^(6/12)[s5];
+[s1][s2][s3][s4][s5]amix=5,volume=5,atrim=0.01"}}
+{if:{arg:1}|=|v major|then:{set:ff|-vf negate,huesaturation=hue=180:strength=100,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=4[1][2][3][4];
+[1]rubberband=pitch=2^(-10/12)[s1];
+[2]rubberband=pitch=2^(-6/12)[s2];
+[3]rubberband=pitch=2^(3/12)[s3];
+[4]rubberband=pitch=2^(9/12)[s4];
+[s1][s2][s3][s4]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|x major|then:{set:ff|-vf hue=s=0,curves=red='0/1 1/0':green='0/0 1/0':blue='0/0 1/0',scroll=0:0:0.2,transpose=1,format=yuv444p,scale=iw:ih,"geq='p(X,(Y+sin(400*T/5+X*11/100)*6))'","geq='p(X,(Y+sin(400*T/5+X*8/100)*8))'","geq='p(X,(Y+sin(400*T/5+X*10/100)*10))'","geq='p(X,(Y+sin(400*T/5+X*5/100)*14))'",scale=iw:ih,format=yuv420p,transpose=2,transpose=1,scroll=h=-0.02,transpose=2 -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-0.679/12)[s1];
+[2]rubberband=pitch=2^(-2.7181/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|x major 2|then:{set:ff|-vf "split=2[1v][2v];
+[1v]crop=iw:ih/2:0:0,hflip,huesaturation=hue=180:strength=100[v1];
+[2v]vflip,crop=iw:ih/2:0:0,vflip,hflip,huesaturation=hue=-150:strength=100,negate[v2];
+[v1][v2]vstack" -af "asplit=4[1][2][3][4];
+[1]rubberband=pitch=2^(-8.13686/12)[s1];
+[2]rubberband=pitch=2^(-2.86544/12)[s2];
+[4]rubberband=pitch=2^(15.86314/12)[s3];
+[s1][s2][s3][3]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|x major 159|then:{set:ff|-vf hue=s=0,curves=red='0/1 0.5/1 1/0':green='0/1 0.5/0 1/0':blue='0/1 0.5/1 1/0' -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-5/12)[s1];
+[1]rubberband=pitch=2^(7/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|y major|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]huesaturation=hue=-90:strength=100,negate,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.35,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack,format=yuv444p[v]" -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-9/12)[s1];
+[1]rubberband=pitch=2^(-8/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|not sure what i did to x timely|then:{set:ff|-vf hflip,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Not_sure_what_I_did_to_X_Alkin_Halim.cube" -o ./notsure.cube; echo ./notsure.cube) -af vibrato=8.585:1,vibrato=8.585:1,vibrato=8.585:1,vibrato=8.585:1,vibrato=8.585:1,chorus=1:0.79:10.6:1:0.001:100,"rubberband=pitch=2^(6/12)",atrim=0.01"}}
+{if:{arg:1}|=|nswidtx timely|then:{set:ff|-vf hflip,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Not_sure_what_I_did_to_X_Alkin_Halim.cube" -o ./notsure.cube; echo ./notsure.cube) -af vibrato=8.585:1,vibrato=8.585:1,vibrato=8.585:1,vibrato=8.585:1,vibrato=8.585:1,chorus=1:0.79:10.6:1:0.001:100,"rubberband=pitch=2^(6/12)",atrim=0.01}}
+{if:{arg:1}|=|low voice|then:{set:ff|-vf hue=180,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack,setpts=PTS/0.75",fps=$fr -af rubberband=pitch=0.75:tempo=0.75}}
+{if:{arg:1}|=|slow voice|then:{set:ff|-vf huesaturation=hue=119:strength=100,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack,setpts=PTS/0.85",fps=$fr -af "rubberband=pitch=2^(-3.01154/12):tempo=0.85"}}
+{if:{arg:1}|=|conga busher|then:{set:ff|-vf hue=255,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af acrusher=bits=24:samples=21:mix=1}}
+{if:{arg:1}|=|cross processing g major|then:{set:ff|-vf negate,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Thermal.cube" -o ./ytthermal.cube; echo ./ytthermal.cube) -af "asplit=4[1][2][3][4];
+[1]rubberband=pitch=2^(-5/12)[s1];
+[2]rubberband=pitch=2^(4/12)[s3];
+[3]rubberband=pitch=2^(7/12)[s4];
+[s1][s3][s4][4]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|are you sure x is in g major|then:{set:ff|-vf hflip,huesaturation=hue=-76:strength=100 -af "asplit=6[0][1][2][3][4][5];
+[1]rubberband=pitch=0.5:transients=mixed[s1];
+[2]rubberband=pitch=2^(-5/12):transients=mixed[s2];
+[3]rubberband=pitch=2^(4/12):transients=mixed[s3];
+[4]rubberband=pitch=2^(7/12):transients=mixed[s4];
+[5]rubberband=pitch=2:transients=mixed[s5];
+[0][s1][s2][s3][s4][s5]amix=6,volume=5,atrim=0.01"}}
+{if:{arg:1}|=|reverse|then:{set:ff|-vf reverse -af areverse}}
+{if:{arg:1}|=|i killed x rj kumar|then:{set:ff|-vf reverse,hflip,huesaturation=hue=180:strength=100 -af areverse,"asplit=6[1][2][3][4][5][6];
+[1]rubberband=pitch=2^(-48/12):transients=mixed[s1];
+[2]rubberband=pitch=2^(-41/12):transients=mixed[s2];
+[3]rubberband=pitch=2^(-36/12):transients=mixed[s3];
+[4]rubberband=pitch=2^(-32/12):transients=mixed[s4];
+[5]rubberband=pitch=2^(-29/12):transients=mixed[s5];
+[6]rubberband=pitch=2^(-24/12):transients=mixed[s6];
+[s1][s2][s3][s4][s5][s6]amix=6,volume=6,atrim=0.01"}}
+{if:{arg:1}|=|rjgunner111 major|then:{set:ff|-vf negate,hflip,huesaturation=hue=108:strength=100 -af "asplit=6[1][2][3][4][5][6];
+[1]rubberband=pitch=2^(-36/12):transients=mixed[s1];
+[2]rubberband=pitch=2^(-29/12):transients=mixed[s2];
+[3]rubberband=pitch=0.25:transients=mixed[s3];
+[4]rubberband=pitch=2^(-20/12):transients=mixed[s4];
+[5]rubberband=pitch=2^(-17/12):transients=mixed[s5];
+[6]rubberband=pitch=0.5:transients=mixed[s6];
+[s1][s2][s3][s4][s5][s6]amix=6,volume=6,atrim=0.01"}}
+{if:{arg:1}|=|stff lost|then:{set:ff|-vf huesaturation=hue=180:strength=100 -af "asplit=2[1][2];
+[1]rubberband=pitch=2^(-8.13686/12)[s1];
+[2]rubberband=pitch=2^(15.86314/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major 49|then:`.t nfx3 "stff lost"` then `.t nfx3 "u major"`}
+{if:{arg:1}|=|doritos|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=180:strength=100,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Filmora_Aibao.cube" -o ./aibao.cube; echo ./aibao.cube) -af "rubberband=pitch=2^(6/12)",atrim=0.01}}
+{if:{arg:1}|=|angry|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=54:strength=100,negate,format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(-0.6)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(-0.6)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-2/12)[s1];
+[0][s1]amix=2,acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100,atrim=0.01"}}
+{if:{arg:1}|=|angry 2.0|then:{set:ff|-vf negate,huesaturation=hue=54:strength=100,format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(-0.6)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(-0.6)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-4/12)[s1];
+[0][s1]amix=2,acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100,atrim=0.01"}}
+{if:{arg:1}|=|asleep|then:{set:ff|-vf negate,huesaturation=hue=99:strength=100,format=yuv444p,scale=640:640,"geq='p(X,(Y+sin((-35/3)+X*11/100)*13.5))'",scale=$w:$h,format=yuv420p -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-6/12)[s1];
+[1]rubberband=pitch=2^(-3/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|because x deserves it|then:{set:ff|-vf huesaturation=hue=130:strength=100 -af "rubberband=pitch=2^(-7.01955/12)",atrim=0.01}}
+{if:{arg:1}|=|blind|then:{set:ff|-vf negate,hue=300,format=yuv444p,scale=$h:$h,"geq='p((W*0.349)+(X-W*0.349)/(lte((hypot(X-W*0.349,Y-H*0.389)),(min(W,H)*0.223))*(1+(-0.5)*2*atan(atan(atan(1-(hypot(X-W*0.349,Y-H*0.389))/(min(W,H)*0.223))^2)))+gt((hypot(X-W*0.349,Y-H*0.389)),(min(W,H)*0.223))*1),(H*0.389)+(Y-H*0.389)/(lte((hypot(X-W*0.349,Y-H*0.389)),(min(W,H)*0.223))*(1+(-0.5)*2*atan(atan(atan(1-(hypot(X-W*0.349,Y-H*0.389))/(min(W,H)*0.223))^2)))+gt((hypot(X-W*0.349,Y-H*0.389)),(min(W,H)*0.223))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-5/12)[s1];
+[1]rubberband=pitch=2^(-3/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|caught a cold|then:{set:ff|-vf huesaturation=hue=180:strength=100,negate,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/LAB_Adjust_-_Invert_Luminosity.cube" -o ./invertluma.cube; echo ./invertluma.cube) -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-10/12)[s1];
+[1]rubberband=pitch=2^(-6/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|not scary|then:{set:ff|-vf huesaturation=hue=180:saturation=1:strength=100,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(-400*T/10+X*5/100)*10))'",format=yuv420p,transpose=2,scale=$w:$h -af "rubberband=pitch=2^(-2.26841/12)",atrim=0.01}}
+{if:{arg:1}|=|crying|then:{set:ff|-vf huesaturation=hue=-126:strength=100,negate,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(X*5/100)*20))'",scale=$w:$h,format=yuv420p -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-5/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|does respond|then:{set:ff|-vf format=yuv444p,scale=$h:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((-90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((-90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p,huesaturation=hue=-36:strength=100 -af "asplit=2[0][1];
+[1]rubberband=pitch=0.5[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|does not respond|then:{set:ff|-vf format=yuv444p,scale=$h:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p,huesaturation=hue=36:strength=100 -af "asplit=2[0][1];
+[1]rubberband=pitch=2[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|opposite respond|then:{set:ff|-vf format=yuv444p,scale=$h:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p,huesaturation=hue=-36:strength=100 -af "asplit=2[0][1];
+[0]rubberband=pitch=0.25[s0];
+[1]rubberband=pitch=0.5[s1];
+[s0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|fat duld|then:{set:ff|-vf format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "rubberband=pitch=2^(-8.13686/12)",atrim=0.01}}
+{if:{arg:1}|=|happy|then:{set:ff|-vf negate,huesaturation=hue=180:strength=100,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin((56/3)+X*3/100)*50))'",scale=$w:$h,format=yuv420p -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(4/12)[s1];
+[1]rubberband=pitch=2[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|poorstretched|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Poorstretched.cube" -o ./poorstretched.cube; echo ./poorstretched.cube) -af afftfilt="real='hypot(re,im)*cos((random(0)*2-1)*2*3.14)':imag='hypot(re,im)*sin((random(1)*2-1)*2*3.14)':win_size=128:overlap=0.8"}}
+{if:{arg:1}|=|poorstretched v2|then:{set:ff|-vf "format=gbrp,split=2[m][o];
+[o]hue=s=0[v1];
+[m][v1]blend=all_mode=difference" -af afftfilt="real='hypot(re,im)*cos((random(0)*2-1)*2*3.14)':imag='hypot(re,im)*sin((random(1)*2-1)*2*3.14)':win_size=128:overlap=0.8"}}
+{if:{arg:1}|=|stupid|then:{set:ff|-vf reverse,"split=2[0][1];
+[0]edgedetect=high=0.28:low=0.52,format=gbrp[m];
+[1]null[o];
+[m][o]blend=all_mode=multiply,format=yuv420p",setpts=PTS/4,fps=$fr -af areverse,rubberband=tempo=4}}
+{if:{arg:1}|=|blind major|then:{set:ff|-vf format=yuv444p,scale=$h:$h,"geq='p((W*0.319)+(X-W*0.319)/(lte((hypot(X-W*0.319,Y-H*0.449)),(min(W,H)*0.3315))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.319,Y-H*0.449))/(min(W,H)*0.3315))^2)))+gt((hypot(X-W*0.319,Y-H*0.449)),(min(W,H)*0.3315))*1),(H*0.449)+(Y-H*0.449)/(lte((hypot(X-W*0.319,Y-H*0.449)),(min(W,H)*0.3315))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.319,Y-H*0.449))/(min(W,H)*0.3315))^2)))+gt((hypot(X-W*0.319,Y-H*0.449)),(min(W,H)*0.3315))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p,negate,huesaturation=hue=60:strength=100,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=4[1][2][3][4];
+[1]rubberband=pitch=2^(-8/12)[s1];
+[2]rubberband=pitch=2^(-6/12)[s2];
+[3]rubberband=pitch=2^(-5/12)[s3];
+[4]rubberband=pitch=2^(-3/12)[s4];
+[s1][s2][s3][s4]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|cry|then:{set:ff|-vf negate,huesaturation=hue=78:strength=100,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin((46/3)+X*2/100)*50))'",scale=$w:$h,format=yuv420p -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-4.54214/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|deaf|then:{set:ff|-vf negate,format=yuv444p,scale=$h:$h,"geq='p((W*0.760)+(X-W*0.760)/(lte((hypot(X-W*0.760,Y-H*0.5)),(min(W,H)*0.5))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.760,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.760,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.760,Y-H*0.5)),(min(W,H)*0.5))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.760,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.760,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p,colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=-144:strength=100,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=2[1][2];
+[1]rubberband=pitch=4[s1];
+[2]rubberband=pitch=2^(22/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|deaf major|then:{set:ff|-vf negate,format=yuv444p,scale=$h:$h,"geq='p((W*0.770)+(X-W*0.770)/(lte((hypot(X-W*0.770,Y-H*0.530)),(min(W,H)*0.3915))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.770,Y-H*0.530))/(min(W,H)*0.3915))^2)))+gt((hypot(X-W*0.770,Y-H*0.530)),(min(W,H)*0.3915))*1),(H*0.530)+(Y-H*0.530)/(lte((hypot(X-W*0.770,Y-H*0.530)),(min(W,H)*0.3915))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.770,Y-H*0.530))/(min(W,H)*0.3915))^2)))+gt((hypot(X-W*0.770,Y-H*0.530)),(min(W,H)*0.3915))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=4[1][2][3][4];
+[1]rubberband=pitch=2^(22/12)[s1];
+[2]rubberband=pitch=4[s2];
+[3]rubberband=pitch=2^(27/12)[s3];
+[4]rubberband=pitch=2^(29/12)[s4];
+[s1][s2][s3][s4]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|disgusted|then:{set:ff|-vf negate,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin((25/3)+X*8/100)*17))'",scale=$w:$h,format=yuv420p,huesaturation=hue=43:strength=100 -af "asplit=3[0][1][2];
+[0]rubberband=pitch=2^(10.34996/12)[s1];
+[1]rubberband=pitch=2^(4.98049/12)[s2];
+[2]rubberband=pitch=2^(-2.41961/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|electrodynamix|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Electrodynamix.cube" -o ./ed.cube; echo ./ed.cube) -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-4.93711/12)[s1];
+[1]rubberband=pitch=2^(1.82404/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|fast voice|then:{set:ff|-vf hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",huesaturation=hue=-54:strength=100,setpts=PTS/1.499,fps=$fr -af "rubberband=tempo=1.499:pitch=2^(4/12)",atrim=0.01}}
+{if:{arg:1}|=|happened|then:{set:ff|-vf hflip,colorchannelmixer=rr=0:rb=1:br=1:bb=0,hue=180,colorchannelmixer=rr=0:rb=1:br=1:bb=0 -af "rubberband=pitch=2^(-3/12)",atrim=0.01}}
+{if:{arg:1}|=|happy vova serg|then:{set:ff|-vf negate,huesaturation=hue=-178:strength=100,vflip,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin((-27/(3+1/3))+X*3/100)*31.5))'",scale=$w:$h,format=yuv420p,vflip -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(8.27592/12)[s1];
+[1]rubberband=pitch=2^(12.34976/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|hot dog|then:{js:console.error(`use \.t {tagname} \"g major 16\" then \.t {tagname} \"u major\"`)}}
+{if:{arg:1}|=|high pitch mirror left|then:{set:ff|-vf hflip,huesaturation=hue=105:strength=100,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "rubberband=pitch=2^(2.81358/12)",atrim=0.01}}
+{if:{arg:1}|=|its full of eggs|then:{set:ff|-vf hue=s=0,curves=red='0/0 1/0':green='0/1 1/0':blue='0/1 1/0',curves=all='0/0 0.86/0 0.87/1 1/1' -af "rubberband=pitch=2^(-6.55162/12)",atrim=0.01}}
+{if:{arg:1}|=|ifoe|then:{set:ff|-vf hue=s=0,curves=red='0/0 1/0':green='0/1 1/0':blue='0/1 1/0',curves=all='0/0 0.86/0 0.87/1 1/1' -af "rubberband=pitch=2^(-6.55162/12)",atrim=0.01}}
+{if:{arg:1}|=|jayden galipo major|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Jayden_Galipo_Major.cube" -o ./jgmajor.cube; echo ./jgmajor.cube) -af "rubberband=pitch=2^(0.88801/12)",atrim=0.01}}
+{if:{arg:1}|=|kaleidoscope major|then:{set:ff|-vf scale=640:480,pixelize=w=48:h=48,scale=$w:$h,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack","crop=iw:ih/2:0:0,split[left][tmp];[tmp]vflip[right];[left][right]vstack" -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(3/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|kirby major|then:{set:ff|-vf hue=s=0,curves=red='0/1 1/0':green='0/0 1/0':blue='0/0.3 1/0',format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(0.6)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(0.6)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "asplit=3[0][1][2];
+[0]rubberband=pitch=2^(5.68717/12)[s1];
+[1]rubberband=pitch=2^(12.70672/12)[s2];
+[2]rubberband=pitch=2^(15.86314/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|low voice 2.5|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=-50:strength=100,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",setpts=PTS/0.5,fps=$fr -af "rubberband=pitch=2^(-3/12):tempo=0.5",atrim=0.01}}
+{if:{arg:1}|=|meat aid|then:{set:ff|-vf huesaturation=hue=113:strength=100,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(400*T/5+X*20/100)*10))'",scale=$w:$h,format=yuv420p -af "asplit[1][2];[1]volume=0.05,highpass=1000,acrusher=bits=32:samples=1[mod];[2]aresample=176400,volume=0.5[carr];[mod][carr]anlms=out_mode=e:order=3200:mu=0.01:leakage=0.005:eps=0.05:precision=double[voc];[voc]volume=75,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,rubberband=pitch=2^(0.70672/12):window=short:transients=mixed:phase=independent,aresample=$sr"}}
+{if:{arg:1}|=|meta major|then:{set:ff|-vf hue=s=0,negate,curves=red='0/0.361 1/0':green='0/0 1/0':blue='0/1 1/0',format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(0.3)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(0.3)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "asplit=4[0][1][2][3];
+[1]rubberband=pitch=2^(-4.54214/12)[s1];
+[2]rubberband=pitch=2^(-3.15641/12)[s2];
+[3]rubberband=pitch=2^(-1.65004/12)[s3];
+[0][s1][s2][s3]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|chorded|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Chord.wav" -o ./chorded.wav; echo ./chorded.wav) -vf hue=s=0,curves=red='0/1 0.5/0 1/0':green='0/1 0.5/0 1/1':blue='0/1 0.5/1 1/1' -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|chord|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Chord.wav" -o ./chorded.wav; echo ./chorded.wav) -vf hue=s=0,curves=red='0/1 0.5/0 1/0':green='0/1 0.5/0 1/1':blue='0/1 0.5/1 1/1' -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|diamond|then:{set:ff|-i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TestPattern.png" -o ./testpattern-gradient.png; echo ./testpattern-gradient.png) -filter_complex "[0]format=gbrp[m];
+[1]scale=$w:$h[v1];
+[m][v1]blend=all_mode=difference,format=yuv420p[v]" -af "asplit=4[0][1][2][3];
+[0]rubberband=pitch=2^(-23/12)[s1];
+[1]rubberband=pitch=2^(-11/12)[s2];
+[2]rubberband=pitch=2^(1/12)[s3];
+[3]rubberband=pitch=2^(13/12)[s4];
+[s1][s2][s3][s4]amix=4,volume=4,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|giygas|then:{set:ff|-i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/PowerDirector_TV_Simulator_Overlay.png" -o ./cyberlinktv.png; echo ./cyberlinktv.png) -filter_complex "[0]huesaturation=hue=180:strength=100,transpose=1,format=yuv444p,scale=640:480,geq='p(X,(Y+sin(X*11.14/100)*6))',format=yuv420p,transpose=2,scale=$w:$h,format=gbrp[m];
+[1]scale=$w:$h[v1];
+[m][v1]blend=all_mode=overlay,format=yuv420p[v]" -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-3/12)[s1];
+[2]rubberband=pitch=2^(3/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|20th|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TCF_1994_Fanfare_Looped.wav" -o ./20thcenturyfox.wav; echo ./20thcenturyfox.wav) -vf huesaturation=hue=180:saturation=1:strength=100,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/AVS4YOU_Max_Temperature.cube" -o ./temperature.cube; echo ./temperature.cube) -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|poor 20th|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Poor_20th_X.wav" -o ./poor20th.wav; echo ./poor20th.wav) -vf huesaturation=hue=180:strength=100 -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|clearer|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Clearer.wav" -o ./clearer.wav; echo ./clearer.wav) -vf hue=s=0,"curves=r=0/1 0.125/0 0.25/0 0.375/1 0.5/0 0.625/1 0.75/0 0.875/0.5882352941176471 1/1:g=0/0 0.125/0 0.25/1 0.375/0 0.5/1 0.625/1 0.75/0 0.875/0 1/1:b=0/0 0.125/1 0.25/0 0.375/1 0.5/1 0.625/0 0.75/0 0.875/0.4470588235294118 1/1" -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|pika major|then:{set:ff|-vf hue=h=27:s=2 -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-7/12)[s1];
+[2]rubberband=pitch=2^(7/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|sad|then:{set:ff|-vf negate,huesaturation=hue=-130:strength=100,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(1.009+X*2.175/100)*71.5))'",scale=$w:$h,format=yuv420p -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-7/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|electronic sounds|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Strings.wav" -o ./strings.wav; echo ./strings.wav) -vf hue=s=0,curves=red='0/1 0.5/0 1/1':green='0/1 0.5/0 1/1':blue='0/1 0.5/1 1/1' -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|mirror and other|then:{set:ff|-vf "split=2[m][o];
+[o]format=rgba,hflip,colorchannelmixer=aa=0.5[v1];
+[m][v1]overlay" -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-8.13686/12)[s1];
+[1]rubberband=pitch=2^(-5.82512/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|ruined|then:{set:ff|-vf hflip,vflip,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Ruined_2014.cube" -o ./ruined.cube; echo ./ruined.cube) -af tremolo=1000:1,tremolo=1000:1,tremolo=1000:1,tremolo=1000:1,tremolo=1000:1}}
+{if:{arg:1}|=|music effect|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Carrier22_(accurate).wav" -o ./synthesizer.wav; echo ./synthesizer.wav) -vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Albino_Blue.cube" -o ./albinoblue.cube; echo ./albinoblue.cube) -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|you pwned|then:{set:ff|-vf huesaturation=hue=90:strength=100,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(1000*T/30+X*5/100)*10))'",format=yuv420p,transpose=2,scale=$w:$h,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(1000*T/30+X*5/100)*10))'",scale=$w:$h,format=yuv420p -af "rubberband=pitch=2^(13.82404/12)",atrim=0.01}}
+{if:{arg:1}|=|zzggt|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/zzggt.wav" -o ./zzggt.wav; echo ./zzggt.wav) -vf huesaturation=hue=90:strength=100,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(1000*T/30+X*5/100)*10))'",format=yuv420p,transpose=2,scale=$w:$h,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(1000*T/30+X*5/100)*10))'",scale=$w:$h,format=yuv420p,"split=2[0][1];
+[0]edgedetect=high=0.28:low=0.52,format=gbrp[m];
+[1]null[o];
+[m][o]blend=all_mode=multiply,format=yuv420p",negate -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|milk|then:{set:ff|-vf huesaturation=hue=180:strength=100,selectivecolor=blacks='-1 -1 -1 1' -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(6.17488/12)[s1];
+[1]rubberband=pitch=2^(8.84359/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|might confuse you|then:{set:ff|-vf "split=2[m][o];
+[o]format=rgba,reverse,colorchannelmixer=aa=0.5[v1];
+[m][v1]overlay" -af "asplit=2[0][1];
+[1]areverse[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|yellow tv|then:{set:ff|-vf "split=16[1][2][3][4][5][6][7][8][9][10][11][12][13][14][15][16];
+[1][2][3][4]hstack=4[row1];
+[5][6][7][8]hstack=4[row2];
+[9][10][11][12]hstack=4[row3];
+[13][14][15][16]hstack=4[row4];
+[row1][row2][row3][row4]vstack=4,scale=iw/4:ih/4",colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=54:strength=100 -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-8/12)[s1];
+[1]rubberband=pitch=2^(8/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|pingu outro effect v5|then:{set:ff|-vf hflip,transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(0.314+X*1/100)*50))'",scale=$w:$h,format=yuv420p,transpose=2,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(PI+0.314+X*1/100)*50))'",scale=$w:$h,format=yuv420p,hflip -af "rubberband=pitch=2^(7.99892/12)",atrim=0.01}}
+{if:{arg:1}|=|powersynthchord|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Munich_Synth_A_7.OGG.wav" -o ./psc.wav; echo ./psc.wav) -vf negate,hue=200 -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|sweetstrings|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/SweetStrings.wav" -o ./sweet.wav; echo ./sweet.wav) -vf hue=s=0,curves=red='0/1 0.5/0 1/1':green='0/1 0.5/1 1/1':blue='0/1 0.5/1 1/1' -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|g major 420|then:{set:ff|-vf negate,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/G-Major%20420%20Temperature.cube" -o ./gm420.cube; echo ./gm420.cube),curves=all='0/0 0.80/0 0.81/1 1/1' -af volume=2,"asplit=2[0][1];
+[0]rubberband=pitch=2^(-6/12)[s1];
+[1]rubberband=pitch=2^(6/12)[s2];
+[s1][s2]amix=2,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|wiggle major|then:{set:ff|-vf huesaturation=hue=-50:strength=100,hflip,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(-1000*T/30+X*1/100)*T*5*10/$vidlen))'",scale=$w:$h,format=yuv420p,transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(-1000*T/30+X*1/100)*T*5*10/$vidlen))'",scale=$w:$h,format=yuv420p,transpose=2,hflip -af "asplit=3[0][1][2];
+[0]rubberband=pitch=2^(-0.34283/12)[s3];
+[1]rubberband=pitch=2^(11.56717/12)[s1];
+[2]rubberband=pitch=2^(-1.96198/12)[s2];
+[s3][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|3x3|then:{set:ff|-vf "split=9[1][2][3][4][5][6][7][8][9];
+[1][2][3]hstack=3[row1];
+[4][5][6]hstack=3[row2];
+[7][8][9]hstack=3[row3];
+[row1][row2][row3]vstack=3,scale=iw/3:ih/3"}}
+{if:{arg:1}|=|x got confused|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=180:strength=100,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=2[1][2];
+[1]rubberband=pitch=0.5[s1];
+[2]rubberband=pitch=2^(-11/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|you wiggled x|then:{set:ff|-vf huesaturation=hue=69:strength=100,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(X*5/100)*10))'",scale=$w:$h,format=yuv420p,transpose=2,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(X*5/100)*10))'",scale=$w:$h,format=yuv420p -af "rubberband=pitch=2^(13.82404/12)",atrim=0.01}}
+{if:{arg:1}|=|young|then:{set:ff|-i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/YOG_Gradient.png" -o ./rainbow2.png; echo ./rainbow2.png) -filter_complex "[0]huesaturation=saturation=-1:strength=100,format=gbrp[m];
+[1]scale=$w:$h[o];
+[m][o]blend=all_mode=multiply,format=yuv420p[v]" -af "rubberband=pitch=2^(9/12)",atrim=0.01 -map [v] -map 0:a}}
+{if:{arg:1}|=|weird code|then:{set:ff|-vf huesaturation=hue=180:strength=100,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",format=yuv444p,scale=$h:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((-110)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((-110)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p -af vibrato=10:0.5,vibrato=10:0.5,vibrato=10:0.5,vibrato=10:0.5,vibrato=10:0.5}}
+{if:{arg:1}|=|x got wrecked|then:{set:ff|-vf hflip,"rotate=a=(-17.8*PI/180)",huesaturation=hue=-140:strength=100 -af acrusher=bits=24:samples=40:mix=1}}
+{if:{arg:1}|=|idfb electronic sounds|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/IDFB%20Strings.wav" -o ./idfbintro.wav; echo ./idfbintro.wav) -vf huesaturation=hue=180:strength=100 -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|x is diet|then:{set:ff|-vf "split=9[1][2][3][4][5][6][7][8][9];
+[1][2][3]hstack=3[row1];
+[4][5][6]hstack=3[row2];
+[7][8][9]hstack=3[row3];
+[row1][row2][row3]vstack=3,scale=iw/3:ih/3",transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(400*T/30+X*5/100)*10))'",scale=$w:$h,format=yuv420p,transpose=2,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(400*T/30+X*1/100)*T*5*10/$vidlen))'",scale=$w:$h,format=yuv420p -af "rubberband=pitch=2^(-8.13686/12)",highpass=360,volume=2,treble=gain=20,bass=gain=40,atrim=0.01}}
+{if:{arg:1}|=|field day major|then:{set:ff|-vf huesaturation=hue=180:saturation=0.2:strength=100,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "rubberband=pitch=2^(-6/12)",atrim=0.01}}
+{if:{arg:1}|=|ives|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Ives.wav" -o ./ives.wav; echo ./ives.wav) -vf hue=s=0,"curves=r=0/0 0.5/0 1/0.35294117647058826:g=0/1 0.5/0 1/0.39215686274509803:b=0/0 0.5/0 1/0" -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|demented|then:{set:ff|-vf "crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(3/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|aztec|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Aztec.wav" -o ./aztec.wav; echo ./aztec.wav) -vf hue=s=0,"curves=r=0/1 0.5/1 1/1:g=0/0.48627450980392156 0.5/0.27450980392156865 1/1:b=0/0 0.5/0.27450980392156865 1/1" -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|group|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Group.wav" -o ./group.wav; echo ./group.wav) -vf hue=s=0,"curves=r=0/0 0.3333333333333333/0 0.6666666666666666/0 1/0:g=0/0 0.3333333333333333/1 0.6666666666666666/0 1/0:b=0/0 0.3333333333333333/1 0.6666666666666666/1 1/0" -filter_complex "[0:a]rubberband=pitch=2^(-5/12),aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|power|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/noise.wav" -o ./power.wav; echo ./power.wav) -vf hue=s=0,curves=red='0/1 0.5/0 1/0':green='0/0 0.5/0 1/1':blue='0/1 0.5/1 1/1' -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|g major 50|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,hue=180,negate -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(6/12)[s1];
+[1]rubberband=pitch=2^(9/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major 200|then:{set:ff|-vf huesaturation=hue=64:strength=100,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",format=yuv444p,scale=640:480,"geq='p(X,(Y+sin((46/3)+X*2/100)*50))'",scale=$w:$h,format=yuv420p -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-7/12)[s1];
+[2]rubberband=pitch=2^(-3/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|mountain dew|then:{set:ff|-vf huesaturation=hue=-130:saturation=1:strength=100,selectivecolor=blacks='0 -1 0 1' -af "asplit=4[0][1][2][3];
+[1]rubberband=pitch=2^(-8.13686/12)[s1];
+[2]rubberband=pitch=2^(-4.54214/12)[s2];
+[3]rubberband=pitch=2^(3.86314/12)[s3];
+[0][s1][s2][s3]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|georgian confusion|then:{set:ff|-vf huesaturation=hue=1:strength=100,colorchannelmixer=rr=0:rb=1:br=1:bb=0,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(PI+X*1.25/100)*14))'",scale=$w:$h,format=yuv420p -af areverse}}
+{if:{arg:1}|=|g major 100|then:{set:ff|-vf "split=2[h1][h2];
+[h1]huesaturation=hue=-62:strength=100,crop=iw/2:ih:0:0[m];
+[h2]huesaturation=hue=180:strength=100,crop=iw/2:ih:0:0,hflip[o];
+[m][o]hstack" -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-5/12)[s1];
+[1]rubberband=pitch=2^(-1.00877/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|nigel louis 12 intro|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/(REUPLOAD)%20Nigel%20Louis%2012%20Intro.mp4" -o ./intro.mp4; echo ./intro.mp4) -filter_complex "[0]format=gbrp[m];
+[1]scale=$w:$h[o];
+[m][o]blend=all_mode=addition,format=yuv420p,trim=0:$vidlen[v];[0:a]rubberband=pitch=2^(-5/12),aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map [v] -map [a]}}
+{if:{arg:1}|=|g major 51|then:{set:ff|-vf huesaturation=hue=135:strength=100,hflip,negate,transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(400*T/30+X*5/100)*10))'",scale=$w:$h,format=yuv420p,transpose=2,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(400*T/30+X*5/100)*10))'",scale=$w:$h,format=yuv420p -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-5.19551/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|sierra mist|then:{set:ff|-vf hue=s=0,curves=red='0/0 1/1':green='0/0 1/0':blue='0/0 1/0',lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/AVS4YOU_Posterize_Levels_-_4.cube" -o ./posterize.cube; echo ./posterize.cube),negate -af "rubberband=pitch=2^(4.98045/12)",atrim=0.01}}
+{if:{arg:1}|=|greenwater|then:{set:ff|-i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Urban_Landscape_Vignette.png" -o ./urban.png; echo ./urban.png) -filter_complex "[0]vflip,hflip,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Autotrophic.cube" -o ./autotrophic.cube; echo ./autotrophic.cube),format=gbrp[m];
+[1]scale=$w:$h[o];
+[m][o]blend=all_mode=multiply,format=yuv420p"}}
+{if:{arg:1}|=|techno|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Techno.wav" -o ./techno.wav; echo ./techno.wav) -vf hue=s=0,curves=red='0/0 0.5/0 1/1':green='0/0 0.5/0 1/1':blue='0/0 0.5/1 1/0' -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|oops you broke it|then:{set:ff|-vf transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(-800*T/30+X*1/100)*50))'",scale=$w:$h,format=yuv420p,transpose=2,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(580*T/30+X*2/100)*33.5))'",scale=$w:$h,format=yuv420p -af "rubberband=pitch=2^(-7.91909/12)",acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100,atrim=0.01}}
+{if:{arg:1}|=|g major 16 2.0|then:{set:ff|-vf negate,huesaturation=hue=180:strength=100,hflip -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-4/12)[s1];
+[1]rubberband=pitch=2^(-10/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|electric|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Electric.wav" -o ./electric.wav; echo ./electric.wav) -vf "split=2[v1][v2];
+[v1]format=gbrp[m];
+[v2]hue=s=0,curves=red=0/1 0.5/0 1/1:green=0/1 0.5/0 1/1:blue=0/1 0.5/1 1/1[o];
+[m][o]blend=all_mode=difference,format=yuv420p" -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|sitardrone|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/SitarDrone.wav" -o ./sitar.wav; echo ./sitar.wav) -vf "split=2[v1][v2];
+[v1]format=gbrp[m];
+[v2]hue=s=0,curves=red=0/1 0.5/0 1/0:green=0/0 0.5/0 1/1:blue=0/1 0.5/1 1/1[o];
+[m][o]blend=all_mode=difference,format=yuv420p" -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|g major twirl|then:{set:ff|-vf negate,huesaturation=hue=180:strength=100,format=yuv444p,scale=$w:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((-360)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.2)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((-360)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.2)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "rubberband=pitch=2^(-5.82512/12)",atrim=0.01}}
+{if:{arg:1}|=|g major by ltv mca|then:{set:ff|-vf hue=s=0,curves=red='0/1 1/0':green='0/0 1/0':blue='0/1 1/0',format=yuv444p,scale=$w:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((-100)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.45)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((-100)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.45)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-3.86314/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|4ormulator|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/4ormulator.wav" -o ./4ormulator.wav; echo ./4ormulator.wav) -filter_complex "[0]hue=s=0,curves=r=0/0 0.2/0.9411764705882353 0.4/1 0.6/0.06666666666666667 0.8/0 1/1:g=0/0 0.2/0 0.4/0.6392156862745098 0.6/0.9411764705882353 0.8/0 1/1:b=0/0 0.2/0 0.4/0 0.6/0 0.8/0 1/1,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.15,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p[v];
+[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[2:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map [v] -map [a] -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|orange effect|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/DEFAULT.wav" -o ./ovdefault.wav; echo ./ovdefault.wav) -vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Orange.cube" -o ./orange.cube; echo ./orange.cube) -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|full chord|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/FULL%20CHORD.wav" -o ./fullchord.wav; echo ./fullchord.wav) -vf hue=s=0,"curves=r=0/1 0.25/0.5019607843137255 0.5/0.32941176470588235 0.75/0 1/1:g=0/1 0.25/0 0.5/1 0.75/1 1/1:b=0/1 0.25/1 0.5/0.6235294117647059 0.75/1 1/1" -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|fmaj vocoder|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/FMAJ%20VOCODER.wav" -o ./fmaj.wav; echo ./fmaj.wav) -vf hue=s=0,"curves=r=0/1 0.2/0.058823529411764705 0.4/0 0.6/0 0.8/1 1/0:g=0/1 0.2/0.792156862745098 0.4/0.16862745098039217 0.6/0.9411764705882353 0.8/1 1/1:b=0/1 0.2/1 0.4/0.8235294117647058 0.6/0.9294117647058824 0.8/1 1/0.8" -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|andrewius major|then:{set:ff|-vf negate,curves=blue='0/0 1/0' -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-2/12)[s1];
+[1]rubberband=pitch=2^(2/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|joey weird effect|then:{set:ff|-vf format=yuv444p,scale=$w:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((-180)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.35)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((-180)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.35)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "rubberband=pitch=2^(-3/12)",atrim=0.01}}
+{if:{arg:1}|=|water lowers|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=54:strength=100 -af rubberband=pitch=0.5,atrim=0.01}}
+{if:{arg:1}|=|bgr tv|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,transpose=1,scroll=h=0.25,transpose=2 -af "asplit=4[0][1][2][3];
+[1]rubberband=pitch=2^(-3/12)[s1];
+[2]rubberband=pitch=2^(-2/12)[s2];
+[3]rubberband=pitch=2^(-1/12)[s3];
+[0][s1][s2][s3]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|devils blast|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]hue=s=0,curves=red=0/0 1/1:green=0/0 1/0:blue=0/0 1/0,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.65,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p[v]" -af "asplit=2[0][1];
+[0]rubberband=pitch=0.5[s1];
+[1]rubberband=pitch=2^(-17/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|nswidtx|then:{set:ff|-vf hflip,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Psychedelic.cube" -o ./videotuneup.cube; echo ./videotuneup.cube) -af vibrato=10:0.5,vibrato=10:0.5,vibrato=10:0.5,vibrato=10:0.5,vibrato=10:0.5,"rubberband=pitch=2^(1/12)",flanger=shape=sinusoidal:speed=5:depth=10,flanger=shape=sinusoidal:speed=2.5:depth=10,flanger=shape=sinusoidal:speed=5:depth=10,flanger=shape=sinusoidal:speed=5:depth=10,flanger=shape=sinusoidal:speed=2.5:depth=10,"rubberband=pitch=2^(-1/12)",aecho=1:1:7.5:1,aecho=1:1:7.5:1,acontrast=100,atrim=0.02}}
+{if:{arg:1}|=|g major 4 low pitch|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/G-Major%204%20Low%20Pitch.cube" -o ./gm4lp.cube; echo ./gm4lp.cube) -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-2/12)[s1];
+[1]rubberband=pitch=2^(3/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|lomoish|then:{set:ff|-i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Lomo-ish.png" -o ./lomoish.png; echo ./lomoish.png) -filter_complex "[0:v]huesaturation=saturation=0.8:strength=100,eq=contrast=1.15,format=gbrp[m];
+[1]scale=$w:$h[o];
+[m][o]blend=all_mode=multiply,format=yuv420p[v]" -map [v] -map 0:a}}
+{if:{arg:1}|=|aerophobia|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Aerophobia.wav" -o ./aerophobia.wav; echo ./aerophobia.wav) -vf hue=s=0,"curves=r=0/0.5098039215686274 0.5/1 1/0.6862745098039216:g=0/0.34901960784313724 0.5/1 1/0:b=0/0.4549019607843137 0.5/1 1/1" -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|helium|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Helium.wav" -o ./saw.wav; echo ./saw.wav) -vf hue=s=0,"curves=r=0/0 0.5/0 1/0:green=0/1 0.5/1 1/0:blue=0/0 0.5/1 1/1" -filter_complex "[0:a]rubberband=pitch=2^(5/12),atrim=0.01,aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|4ormulator v5|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/4ormulator%20Factory%205.wav" -o ./4orm5.wav; echo ./4orm5.wav) -vf hflip,hue=s=0,"curves=r=0/0 0.33/0 0.67/0 1/1:g=0/0 0.33/1 0.67/0 1/1:b=0/0 0.33/1 0.67/1 1/1" -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|gears3000 weird effect|then:{set:ff|-vf huesaturation=hue=100:strength=100,format=yuv444p,scale=$w:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((360)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.25)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((360)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.25)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-7.01955/12)[s1];
+[1]rubberband=pitch=2^(-3.86314/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|w major joey|then:{set:ff|-vf "split=2[v1][v2];
+[v1]huesaturation=hue=69:strength=100,crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack,transpose=1,format=yuv444p,scale=640:480,geq='p(X,(Y+sin(X*5/100)*10))',scale=$w:$h,format=yuv420p,transpose=2,format=yuv444p,scale=640:480,geq='p(X,(Y+sin(X*5/100)*10))',scale=$w:$h,format=yuv420p,crop=iw/2:ih:0:0[youwiggled];
+[v2]huesaturation=hue=100:strength=100,format=yuv444p,scale=$w:$h,geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((360)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.25)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((360)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.25)*3)))',scale=$w:$h,setsar=1:1,format=yuv420p,hflip,crop=iw/2:ih:0:0,hflip[gears];
+[youwiggled][gears]hstack" -af "asplit=3[0][1][2];
+[0]rubberband=pitch=2^(-7.01955/12)[s1];
+[1]rubberband=pitch=2^(-3.86314/12)[s2];
+[2]rubberband=pitch=2^(13.82404/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|ear bleep|then:{set:ff|-vf huesaturation=hue=180:strength=100,format=yuv444p,scale=$w:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((-360)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.25)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((-360)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.25)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "rubberband=pitch=2^(15.86314/12)",acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100,atrim=0.01}}
+{if:{arg:1}|=|loud ear bleep|then:{set:ff|-vf huesaturation=hue=180:strength=100,format=yuv444p,scale=$w:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((-360)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.25)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((-360)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.25)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "rubberband=pitch=2^(15.86314/12)",acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100,atrim=0.01}}
+{if:{arg:1}|=|videoup|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Videoup.wav" -o ./videoup.wav; echo ./videoup.wav) -vf hue=s=0,"curves=r=0/1 0.5/0 1/0:g=0/1 0.5/0 1/0:b=0/1 0.5/1 1/0" -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]" -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|too ruins tree|then:{set:ff|-vf huesaturation=hue=-130:strength=100,format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(1.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p,colorchannelmixer=rr=0:rb=1:br=1:bb=0 -af "rubberband=pitch=2^(15.86314/12)",atrim=0.01}}
+{if:{arg:1}|=|rgb color space|then:{set:ff|-vf "split=4[r][g][b][a];
+[r]curves=green=0/0 1/0:blue=0/0 1/0[v1];
+[g]curves=red=0/0 1/0:blue=0/0 1/0[v2];
+[b]curves=red=0/0 1/0:green=0/0 1/0[v3];
+[v1][v2]hstack[row1];
+[v3][a]hstack[row2];
+[row1][row2]vstack,scale=iw/2:ih/2"}}
+{if:{arg:1}|=|g major 59|then:{set:ff|-vf negate,huesaturation=hue=130:strength=100,format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(-0.4)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(-0.4)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=6[0][1][2][3][4][5];
+[1]rubberband=pitch=2^(-8.13686/12)[s1];
+[2]rubberband=pitch=2^(0.52732/12)[s2];
+[3]rubberband=pitch=2^(4.75114/12)[s3];
+[4]rubberband=pitch=2^(6.67672/12)[s4];
+[5]rubberband=pitch=2^(15.86314/12)[s5];
+[0][s1][s2][s3][s4][s5]amix=6,volume=6,atrim=0.01"}}
+{if:{arg:1}|=|wave major|then:{set:ff|-vf hue=s=0,curves=red='0/0 1/0.353':green='0/0 1/0.392':blue='0/0 1/0',transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(1.759+200*T/30+X*2/100)*35))'",scale=$w:$h,format=yuv420p,transpose=2,scale=$w:$h -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-1.17133/12)[s1];
+[2]rubberband=pitch=2^(-6.07069/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|fat major|then:{set:ff|-vf hflip,colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=178:strength=100,format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(2.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(2.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "rubberband=pitch=2^(9.86314/12)",atrim=0.01}}
+{if:{arg:1}|=|r major|then:{set:ff|-vf hue=120,selectivecolor=neutrals='0 0 0 1',eq=brightness=-0.1,"split=2[v0][v1];
+[v0]format=gbrp[m];
+[v1]hflip,format=rgba,colorchannelmixer=aa=0.5[o];
+[m][o]blend=all_mode=addition,format=yuv420p" -af "asplit=4[0][1][2][3];
+[0]rubberband=pitch=0.5[s1];
+[1]rubberband=pitch=2^(-5/12)[s2];
+[2]rubberband=pitch=2^(5/12)[s3];
+[3]rubberband=pitch=2[s4];
+[s1][s2][s3][s4]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|redchord|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/RedChord.wav" -o ./rc.wav; echo ./rc.wav) -vf hue=s=0,"curves=r=0/1 0.5/0.9490196078431372 1/1:g=0/1 0.5/0.0196078431372549 1/0:b=0/1 0.5/0.1568627450980392 1/0" -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]"}}
+{if:{arg:1}|=|x is mad|then:{set:ff|-vf huesaturation=hue=105:strength=100,format=yuv444p,scale=$w:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.25)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((90)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.25)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p,eq=contrast=1.15 -af "asplit=9[0][1][2][3][4][5][6][7][8];
+[1]rubberband=pitch=2^(-25/12)[s1];
+[2]rubberband=pitch=2^(-18/12)[s2];
+[3]rubberband=pitch=2^(-13/12)[s3];
+[4]rubberband=pitch=2^(-9/12)[s4];
+[5]rubberband=pitch=2^(-6/12)[s5];
+[6]rubberband=pitch=2^(-1/12)[s6];
+[7]rubberband=pitch=2^(3/12)[s7];
+[8]rubberband=pitch=2^(6/12)[s8];
+[0][s1][s2][s3][s4][s5][s6][s7][s8]amix=9,volume=5,acontrast=100,acontrast=100,acontrast=100,atrim=0.01"}}
+{if:{arg:1}|=|g major 36|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/G-Major%2036.cube" -o ./gm36.cube; echo ./gm36.cube),scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.15,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p[v]" -af "asplit=5[0][1][2][3][4];
+[1]rubberband=pitch=2^(-8/12)[s1];
+[2]rubberband=pitch=2^(-3/12)[s2];
+[3]rubberband=pitch=2^(2/12)[s3];
+[4]rubberband=pitch=2^(5/12)[s4];
+[0][s1][s2][s3][s4]amix=5,volume=5,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|ethereal voices|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/ETHEREAL%20VOICES.wav" -o ./ethereal.wav; echo ./ethereal.wav) -vf hue=s=0,"curves=r=0/0 0.2/0 0.4/0 0.6/1 0.8/1 1/1:g=0/0 0.2/0.792156862745098 0.4/0.16862745098039217 0.6/0 0.8/1 1/1:b=0/0 0.2/1 0.4/0.8235294117647058 0.6/0 0.8/1 1/0.8" -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]"}}
+{if:{arg:1}|=|diamond major|then:{set:ff|-vf hflip,huesaturation=hue=19:saturation=1:strength=100 -af "rubberband=pitch=2^(1.99123/12)",atrim=0.01}}
+{if:{arg:1}|=|killed map|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Thermal.cube" -o ./thermal.cube; echo ./thermal.cube),"setpts=PTS/0.5",fps=$fr -af "rubberband=pitch=0.5:tempo=0.5,bass=gain=24,treble=gain=12"}}
+{if:{arg:1}|=|wotblont|then:{set:ff|-vf huesaturation=hue=180:strength=100,negate,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",scale=640:480,pixelize=w=7:h=7,scale=$w:$h,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Autotrophic.cube" -o ./autotrophic.cube; echo ./autotrophic.cube) -af areverse}}
+{if:{arg:1}|=|divided|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=7:strength=100,format=yuv444p,scale=$w:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.1)*cos(atan2(Y-H*0.1,X-W*0.5)+((-70)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.1)/min(W,H)/1.2)*3)),H*0.1+hypot(X-W*0.5,Y-H*0.1)*sin(atan2(Y-H*0.1,X-W*0.5)+((-70)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.1)/min(W,H)/1.2)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "rubberband=pitch=0.5:transients=mixed",atrim=0.01}}
+{if:{arg:1}|=|multiplied|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=-7:strength=100,format=yuv444p,scale=$w:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.1)*cos(atan2(Y-H*0.1,X-W*0.5)+((70)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.1)/min(W,H)/1.2)*3)),H*0.1+hypot(X-W*0.5,Y-H*0.1)*sin(atan2(Y-H*0.1,X-W*0.5)+((70)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.1)/min(W,H)/1.2)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "rubberband=pitch=2:transients=mixed",atrim=0.01}}
+{if:{arg:1}|=|fanta|then:{set:ff|-vf huesaturation=hue=-26:saturation=1:strength=100,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Fanta.cube" -o ./fanta.cube; echo ./fanta.cube) -af "asplit=3[0][1][2];
+[0]rubberband=pitch=2^(-8.13686/12)[s1];
+[1]rubberband=pitch=2^(-5.82512/12)[s2];
+[2]rubberband=pitch=2^(-4.54214/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|g major 5 theuser10|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]hue=180,hflip,crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack,scale=854:854,format=bgr32[00];[0]crop=iw/2:ih:0:0[h2];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.35,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p,hflip,crop=iw/2:ih:0:0,hflip[h1];
+[h2][h1]hstack[v]" -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-2.5/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|sprite|then:{set:ff|-i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/BlueExplosion.png" -o ./blueexplosion.png; echo ./blueexplosion.png) -filter_complex "[0:v]colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=90:strength=100,hflip,format=gbrp[m];
+[1]scale=$w:$h[o];
+[m][o]blend=all_mode=overlay,format=yuv420p[v]" -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-7/12)[s1];
+[2]rubberband=pitch=2^(6/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|videoup v2|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Videoup%20V2.wav" -o ./vv2.wav; echo ./vv2.wav) -stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]hue=s=0,curves=red=0/0.5 0.5/0 1/0:green=0/0 0.5/0.5 1/0:blue=0/0 0.5/0 1/0.5,scale=854:854,format=bgr32[00];[2]crop=iw:ih/4:0:0,scale=854:854,eq=contrast=0.25,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p[v];
+[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map [v] -map [a] -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|4ormulator v14|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/4ormulator%20(Factory%2014).wav" -o ./4ormv14.wav; echo ./4ormv14.wav) -vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Infrared.cube" -o ./infrared.cube; echo ./infrared.cube),negate -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map [a]}}
+{if:{arg:1}|=|x has chickenpox|then:{set:ff|-vf selectivecolor=blacks='-1 -0.5 0 1' -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-5/12)[s1];
+[2]rubberband=pitch=2^(7/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|pranks|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/pranks.wav" -o ./pranks.wav; echo ./pranks.wav) -vf eq=brightness=0.196:saturation=2:gamma=0.5,huesaturation=hue=60:strength=100,"crop=iw*(3/5):ih:0:0,split=2[m][h2];
+[h2]scale=$w*(2/5):$h,hflip[o];
+[m][o]hstack",transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(2000*T/30+X*1/100)*50))'",scale=$w:$h,format=yuv420p,transpose=2,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(2000*T/30+X*1/100)*50))'",scale=$w:$h,format=yuv420p -filter_complex "[1:a]atrim=0:$vidlen[a]" -map 0:v -map [a]}}
+{if:{arg:1}|=|hue cycle|then:{set:ff|-vf hue=t*5*72/$vidlen}}
+{if:{arg:1}|=|colorama|then:{set:ff|-vf hue=s=0,"curves=r=0/1 0.16666666666666666/1 0.3333333333333333/0 0.5/0 0.6666666666666666/0 0.8333333333333334/1 1/1:g=0/0 0.16666666666666666/1 0.3333333333333333/1 0.5/1 0.6666666666666666/0 0.8333333333333334/0 1/0:b=0/0 0.16666666666666666/0 0.3333333333333333/0 0.5/1 0.6666666666666666/1 0.8333333333333334/1 1/0" -af aecho=in_gain=1:out_gain=1:delays=10:decays=1,aecho=in_gain=1:out_gain=1:delays=10:decays=1,aecho=in_gain=1:out_gain=1:delays=10:decays=1,aecho=in_gain=1:out_gain=1:delays=10:decays=1,volume=0.7}}
+{if:{arg:1}|=|1000 flutes|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/1000%20FLUTES%20v2.wav" -o ./1000flutes.wav; echo ./1000flutes.wav) -vf "rotate=a=t*5*(-7.2*PI/180)/$vidlen",scale=$w:$h,format=yuv444p,scale=$h:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((-110)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((-110)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p -filter_complex "[1:a]atrim=0:$vidlen[a]" -map 0:v -map [a]}}
+{if:{arg:1}|=|mirror and black|then:{set:ff|-vf "split=2[0][1];
+[0]hue=s=0,crop=iw/2:ih:0:0[h1];
+[1]crop=iw/2:ih:0:0,hflip[h2];
+[h1][h2]hstack"}}
+{if:{arg:1}|=|rotation wave|then:{set:ff|-vf scale=$w:$h,"rotate=t*PI/$d",scale=$w:$h,transpose=1,format=yuv444p,scale=640:640,"geq='p(X,(Y+sin(X*1/100)*50))'",scale=$w:$h,format=yuv420p,transpose=2,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(X*1/100)*50))'",scale=$w:$h,format=yuv420p -af "rubberband=pitch=2^(-3.86314/12)",atrim=0.01}}
+{if:{arg:1}|=|crazy slow killed|then:{set:ff|-vf setpts=PTS/0.3,fps=$fr,huesaturation=hue=78:strength=100,format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(0.75)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(0.75)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p,transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(PI+X*-2/100)*50))'",scale=$w:$h,format=yuv420p,transpose=2,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(X*2/100)*50))'",scale=$w:$h,format=yuv420p -af "rubberband=pitch=2^(6.17488/12):tempo=0.3",atrim=0.01}}
+{if:{arg:1}|=|ripple pitch|then:{set:ff|-vf huesaturation=hue=-90:strength=100,format=yuv444p,scale=640:480,"geq='p(W*0.5+(hypot(X-W*0.5,Y-H*0.5)+20*sin(2*PI*1.05*T-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/27)))*cos(atan2(Y-H*0.5,X-W*0.5)),H*0.5+(hypot(X-W*0.5,Y-H*0.5)+20*sin(2*PI*1.05*T-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/27)))*sin(atan2(Y-H*0.5,X-W*0.5)))'",scale=$w:$h,format=yuv420p -af "rubberband=pitch=2^(-5.82512/12)",atrim=0.01}}
+{if:{arg:1}|=|mirror twirls|then:{set:ff|-vf "crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",format=yuv444p,scale=$w:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((90+(T*5*-18/$vidlen))/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.8)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((90+(T*5*-18/$vidlen))/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.8)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "asplit=2[0][1];
+[0]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,rubberband=pitch=2^(-8.13686/12)"}}
+{if:{arg:1}|=|cold major|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Cold%20Major.cube" -o ./coldmajor.cube; echo ./coldmajor.cube) -af "rubberband=pitch=2^(-1.65004/12)",atrim=0.01}}
+{if:{arg:1}|=|pizza pizza|then:{set:ff|-vf negate,huesaturation=hue=46:strength=100,curves=all='0/0 0.49/0 0.5/1 1/1',format=yuv444p,scale=640:480,"geq='p(W*0.5+(hypot(X-W*0.5,Y-H*0.5)+20*sin(2*PI*1.05*T-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/27)))*cos(atan2(Y-H*0.5,X-W*0.5)),H*0.5+(hypot(X-W*0.5,Y-H*0.5)+20*sin(2*PI*1.05*T-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/27)))*sin(atan2(Y-H*0.5,X-W*0.5)))'",scale=$w:$h,format=yuv420p -af "rubberband=pitch=2^(-4.54214/12)",atrim=0.01}}
+{if:{arg:1}|=|autovocoding|then:{set:ff|-vf hue=s=0,"curves=r=0/0 0.3333333333333333/0 0.6666666666666666/0 1/1:g=0/0 0.3333333333333333/1 0.6666666666666666/0 1/1:b=0/1 0.3333333333333333/0 0.6666666666666666/0 1/1" -af "asplit=2[0][1];
+[0]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200[mod];[1]rubberband=pitch=0.5,aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16"}}
+{if:{arg:1}|=|old school|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Old%20school.wav" -o ./oldschool.wav; echo ./oldschool.wav) -filter_complex "[0]negate,huesaturation=hue=180:strength=100,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.35,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p,format=yuv444p,scale=$h:$h,geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((-500+(T*1000/$d))/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((-500+(T*1000/$d))/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)))',scale=$w:$h,setsar=1:1,format=yuv420p[v];
+[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[2:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map [v] -map "[a]"}}
+{if:{arg:1}|=|z major|then:{set:ff|-vf huesaturation=hue=60:strength=100,negate,"crop=iw*(64/100):ih:0:0,split=2[left][1];
+[1]hflip,scale=$w*(36/100):$h:0:0[right];
+[left][right]hstack",hflip,"split=2[0][1];[0]crop=iw/2:ih:0:0[left];[1]crop=iw/2:ih:0:0,hflip[right];[left][right]hstack","crop=iw:ih*(64/100):0:0,split=2[top][1];
+[1]vflip,scale=$w:$h*(36/100):0:0[bottom];
+[top][bottom]vstack",vflip,"split=2[0][1];[0]crop=iw:ih/2:0:0[top];[1]crop=iw:ih/2:0:0,vflip[bottom];[top][bottom]vstack" -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-8.13686/12)[s1];
+[2]rubberband=pitch=2^(-3.15614/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|powercitynight|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/PCN.wav" -o ./pcn.wav; echo ./pcn.wav) -vf hue=s=0,curves=red='0/0 0.33/0 0.67/1 1/0':green='0/0 0.33/0 0.67/1 1/0':blue='0/1 0.33/0 0.67/0 1/0' -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map [a] -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|subtle maxxout|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/SUBTLE%20MAXXOUT.wav" -o ./so.wav; echo ./so.wav) -vf transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(X*(16+(T*-16/$d))/100)*250))'",scale=$w:$h,format=yuv420p,transpose=2,scale=$w:$h -filter_complex "[1:a]atrim=0:$d[a]" -map 0:v -map [a]}}
+{if:{arg:1}|=|w major javier sainz|then:{set:ff|-vf negate,hue=103,"hflip,crop=iw*(576/1000):ih:0:0,split=2[0][1];
+[1]hflip[o];
+[0][o]hstack","crop=$w*(576/1000):ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack","crop=iw*(576/1000):ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",crop=$w:$h -af "asplit=4[0][1][2][3];
+[0]rubberband=pitch=0.5[s1];
+[1]rubberband=pitch=2^(-7/12)[s2];
+[2]rubberband=pitch=2^(-3/12)[s3];
+[3]rubberband=pitch=2^(-2/12)[s4];
+[s1][s2][s3][s4]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|pregnant|then:{set:ff|-vf negate,huesaturation=hue=135:strength=100,format=yuv444p,scale=$h:$h,"geq='p((W*0.505)+(X-W*0.505)/(lte((hypot(X-W*0.505,Y-H*0.79)),(min(W,H)*0.5))*(1+(1)*2*atan(atan(atan(1-(hypot(X-W*0.505,Y-H*0.79))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.505,Y-H*0.79)),(min(W,H)*0.5))*1),(H*0.79)+(Y-H*0.79)/(lte((hypot(X-W*0.505,Y-H*0.79)),(min(W,H)*0.5))*(1+(1)*2*atan(atan(atan(1-(hypot(X-W*0.505,Y-H*0.79))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.505,Y-H*0.79)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(5/12)[s1];
+[2]rubberband=pitch=2^(9/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|ferris wheel|then:{set:ff|-vf "rotate=t*PI/$d",scale=$w:$h,"split=9[1][2][3][4][5][6][7][8][9];
+[1][2][3]hstack=3[a];
+[4][5][6]hstack=3[b];
+[7][8][9]hstack=3[c];
+[a][b][c]vstack=3,scale=iw/3:ih/3",rotate=t*-PI/$d,scale=$w:$h -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(3.86314/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|black and white chorded|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/BlackWhite%20Chord.wav" -o ./bwchorded.wav; echo ./bwchorded.wav) -vf hue=s=0,curves=all='0/0 0.55/1 0.7/0 0.9/1' -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map [a]}}
+{if:{arg:1}|=|loudness|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/LoudNess.cube" -o ./loudness.cube; echo ./loudness.cube) -af acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100}}
+{if:{arg:1}|=|his major|then:{set:ff|-vf selectivecolor=blacks='0 -1 -1 1' -af "asplit=7[0][1][2][3][4][5][6];
+[1]rubberband=pitch=2^(-1.65004/12)[s1];
+[2]rubberband=pitch=2^(-3.15412/12)[s2];
+[3]rubberband=pitch=2^(-4.54214/12)[s3];
+[4]rubberband=pitch=2^(-5.82512/12)[s4];
+[5]rubberband=pitch=2^(-7.01955/12)[s5];
+[6]rubberband=pitch=2^(-8.13686/12)[s6];
+[0][s1][s2][s3][s4][s5][s6]amix=7,volume=7,atrim=0.01"}}
+{if:{arg:1}|=|her major|then:{set:ff|-vf huesaturation=hue=-30:saturation=1:strength=100,selectivecolor=blacks='-1 -0.5 -1 1' -af "asplit=7[0][1][2][3][4][5][6];
+[1]rubberband=pitch=2^(1.82404/12)[s1];
+[2]rubberband=pitch=2^(3.86314/12)[s2];
+[3]rubberband=pitch=2^(6.17488/12)[s3];
+[4]rubberband=pitch=2^(8.84359/12)[s4];
+[5]rubberband=pitch=2[s5];
+[6]rubberband=pitch=2^(15.86314/12)[s6];
+[0][s1][s2][s3][s4][s5][s6]amix=7,volume=7,atrim=0.01"}}
+{if:{arg:1}|=|avs4you test|then:{set:ff|-vf huesaturation=hue=-75:strength=100,negate,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(-400*T/30+X*5/100)*10))'",scale=$w:$h,format=yuv420p,transpose=2,scale=$w:$h,curves=all='0/0 0.59/0 0.6/1 1/1' -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-3.15641/12)[s1];
+[2]rubberband=pitch=2^(3.86314/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|avs tester|then:{set:ff|-vf huesaturation=hue=-75:strength=100,negate,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(-400*T/30+X*5/100)*10))'",scale=$w:$h,format=yuv420p,transpose=2,scale=$w:$h,curves=all='0/0 0.59/0 0.6/1 1/1' -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-3.15641/12)[s1];
+[2]rubberband=pitch=2^(3.86314/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|high|then:{set:ff|-vf format=yuv444p,scale=640:640,"geq='p(X-((sin((T*5*5/$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv=p=0)+(0*15))+(Y/H)*(PI*32*T/$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv=p=0))))*(-15*50*T/$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv=p=0))),Y-((sin((T*5*5/$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv=p=0)+(0*15))+(X/W)*(PI*32*T/$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv=p=0))))*(-15*50*T/$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv=p=0))))'",scale=$w:$h,format=yuv420p -af vibrato=2:1,vibrato=2:1,vibrato=2:1,areverse,vibrato=0.5:0.5,vibrato=0.5:0.5,vibrato=0.5:0.5,areverse}}
+{if:{arg:1}|=|8-bit electronic sounds|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Strings8B.wav" -o ./8bit.wav; echo ./8bit.wav) -vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/WMM2.6Hue-start.cube" -o ./wmm26hue.cube; echo ./wmm26hue.cube),hue=t*360/$d -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map [a]}}
+{if:{arg:1}|=|accidental major|then:{set:ff|-vf rotate=t*(PI*2)/$d,scale=$w:$h,hue=s=0,"curves=r=0/1 0.16666666666666666/1 0.3333333333333333/0 0.5/0 0.6666666666666666/0 0.8333333333333334/1 1/1:g=0/0 0.16666666666666666/1 0.3333333333333333/1 0.5/1 0.6666666666666666/0 0.8333333333333334/0 1/0:b=0/0 0.16666666666666666/0 0.3333333333333333/0 0.5/1 0.6666666666666666/1 0.8333333333333334/1 1/0" -af "rubberband=pitch=2^(-4/12)",acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100,atrim=0.01}}
+{if:{arg:1}|=|wind blowing|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]rotate=a=5*PI/180,hflip,scale=854:854,format=bgr32[00];[1]crop=iw:ih/4:0:0,scale=854:854,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p[v]" -af acrusher=bits=24:samples=1:mix=1,volume=50,acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100,volume=0.3 -map [v] -map 0:a}}
+{if:{arg:1}|=|bfb major|then:{set:ff|-vf huesaturation=hue=-102:strength=100,format=yuv444p,scale=640:480,"geq='p(W*0.5+(hypot(X-W*0.5,Y-H*0.5)+20*sin(2*PI*0.1*T-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/27)))*cos(atan2(Y-H*0.5,X-W*0.5)),H*0.5+(hypot(X-W*0.5,Y-H*0.5)+20*sin(2*PI*0.1*T-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/27)))*sin(atan2(Y-H*0.5,X-W*0.5)))'",scale=$w:$h,format=yuv420p -af "rubberband=pitch=2^(12.34976/12)",atrim=0.01}}
+{if:{arg:1}|=|x is gay|then:{set:ff|-vf format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(X*20/100)*50))'",scale=$w:$h,format=yuv420p,transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(-2000*T/30+X*5/100)*10))'",scale=$w:$h,format=yuv420p,transpose=2,scale=$w:$h,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-8.13686/12)[s1];
+[1]rubberband=pitch=2^(-2.26841/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|gay|then:{set:ff|-vf format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(X*20/100)*50))'",scale=$w:$h,format=yuv420p,transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(-2000*T/30+X*5/100)*10))'",scale=$w:$h,format=yuv420p,transpose=2,scale=$w:$h,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-8.13686/12)[s1];
+[1]rubberband=pitch=2^(-2.26841/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|windows 8|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Windows_8_Sound.wav" -o ./win8logon.wav; echo ./win8logon.wav) -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Windows_8.png" -o ./win8.png; echo ./win8.png) -filter_complex "[2]scale=$w:$h[m];
+[0]selectivecolor=blues='0 0 0 0'[o];
+[m][o]overlay[v];
+[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map [v] -map [a] -c:v copy -ac 1 -c:a aac -ar 44100 -shortest}}
+{if:{arg:1}|=|lewdlyness|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Sepia.cube" -o ./sepia.cube; echo ./sepia.cube),selectivecolor=blacks='-1 0.5 0 1' -af "bass=gain=24:w=2,treble=gain=24,acontrast=100,acontrast=100,acontrast=100"}}
+{if:{arg:1}|=|elderly|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Elderly.wav" -o ./elderly.wav; echo ./elderly.wav) -vf hue=s=0,curves=r='0/1 0.33/0 0.67/1 1/1':g='0/0 0.33/0 0.67/1 1/0':b='0/1 0.33/0 0.67/1 1/0' -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map [a]}}
+{if:{arg:1}|=|g major 61|then:{set:ff|-vf negate,colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=-61:strength=100,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(3/12)[s1];
+[1]rubberband=pitch=2^(9/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|i didnt know how x is|then:{set:ff|-vf eq=gamma=1.78,huesaturation=hue=-108:strength=100 -af aecho=1:1:7.5:1,aecho=1:1:7.5:1,aecho=1:1:7.5:1}}
+{if:{arg:1}|=|i sused x|then:{set:ff|-vf transpose=1,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(-500*T/30+X*4/100)*7.5))'",scale=$w:$h,format=yuv420p,transpose=2,format=yuv444p,scale=640:480,"geq='p(W*0.5+(hypot(X-W*0.5,Y-H*0.5)+20*sin(2*PI*0.2*T-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/50)))*cos(atan2(Y-H*0.5,X-W*0.5)),H*0.5+(hypot(X-W*0.5,Y-H*0.5)+20*sin(2*PI*0.2*T-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/50)))*sin(atan2(Y-H*0.5,X-W*0.5)))'",scale=$w:$h,format=yuv420p,huesaturation=hue=100:strength=100 -af "rubberband=pitch=2^(-7.01955/12)",atrim=0.01}}
+{if:{arg:1}|=|jayden weird effect|then:{set:ff|-vf "split=2[0][1];
+[0]huesaturation=hue=180:strength=100,negate,format=yuv444p,scale=640:480,geq='p(W*0.5+(hypot(X-W*0.5,Y-H*0.5)+20*sin(2*PI*1.2*T-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/27)))*cos(atan2(Y-H*0.5,X-W*0.5)),H*0.5+(hypot(X-W*0.5,Y-H*0.5)+20*sin(2*PI*1.2*T-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/27)))*sin(atan2(Y-H*0.5,X-W*0.5)))',scale=$w:$h,format=yuv420p[m];
+[1]scale=iw/2:ih/2[o];
+[m][o]overlay=$w/4:$h/4" -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(15.86314/12)[s1];
+[2]rubberband=pitch=2^(9.13456/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|l15edition diamond|then:{set:ff|-i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TestPattern.png" -o ./gradient.png; echo ./gradient.png) -filter_complex "[0]format=gbrp[m];
+[1]scale=$w:$h[o];
+[m][o]blend=all_mode=darken,format=yuv420p[v]" -af "asplit=3[0][1][2];
+[0]rubberband=pitch=2^(1/12)[s1];
+[1]rubberband=pitch=2^(11/12)[s2];
+[2]rubberband=pitch=2^(13/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|g major 75|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]hflip,negate,colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=-121:strength=100,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.45,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p[v]" -af "asplit=5[0][1][2][3][4];
+[1]rubberband=pitch=2^(-4/12)[s1];
+[2]rubberband=pitch=2^(-3/12)[s2];
+[3]rubberband=pitch=2^(-2/12)[s3];
+[4]rubberband=pitch=2^(-1/12)[s4];
+[0][s1][s2][s3][s4]amix=5,volume=5,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|sick|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]hflip,hue=s=0,curves=r=0/0.25 1/1:g=0/0 1/0:b=0/0 1/0,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.35,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p[v]" -af "rubberband=pitch=0.25,volume=3,atrim=0.01,acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100" -map [v] -map 0:a}}
+{if:{arg:1}|=|shock|then:{set:ff|-vf huesaturation=hue=180:strength=100,negate,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(4.71238898038+X*1/100)*50))'",scale=$w:$h,format=yuv420p -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(6.9332/12)[s1];
+[2]rubberband=pitch=2[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|scariest x ever|then:{set:ff|-vf "split=2[0][1];
+[0]huesaturation=hue=180:strength=100,negate[m];
+[1]huesaturation=hue=120:strength=100,eq=brightness=-0.395,scale=iw/3.25:ih/3.25[o];
+[m][o]overlay=x='((W-w)/2)+(sin((1*t*6.3/$d)-1.5)*(W/3))':y='((H-h)/2)+(cos((1*t*6.3/$d)+1.5)*(H/2))'" -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-8.13686/12)[s1];
+[1]rubberband=pitch=2^(-4.54214/12)[s2];
+[s1][s2]amix=2,volume=3,acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100,atrim=0.01"}}
+{if:{arg:1}|=|high major|then:{set:ff|-vf huesaturation=hue=120:saturation=0.333:strength=100 -af "rubberband=pitch=2^(3/12):transients=crisp:window=short,afade=t=in:d=0.2"}}
+{if:{arg:1}|=|j major|then:{set:ff|-i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/S_HalftoneDots.png" -o ./halftone.png; echo ./halftone.png) -filter_complex "[0]format=gbrp[m];
+[1]scale=$w:$h[o];
+[m][o]blend=all_mode=overlay,format=yuv420p" -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(5/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|modern g major 100|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,hue=100,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack",format=yuv444p,scale=640:480,"geq='p((X-sin(-0.628+Y*1.6/100)*25),(Y+sin(0.628+X*1.6/100)*25))'",scale=$w:$h,format=yuv420p -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-1/12)[s1];
+[1]rubberband=pitch=2^(-5/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|hybrid|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Hybrid.wav" -o ./hybrid.wav; echo ./hybrid.wav) -vf hue=s=0,"curves=r=0/0 0.25/1 0.5/0 0.75/1 1/0.8156862745098039:g=0/0.7764705882352941 0.25/1 0.5/0.6980392156862745 0.75/1 1/0.8274509803921568:b=0/0.5372549019607843 0.25/1 0.5/0.25882352941176473 0.75/1 1/0.803921568627451" -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map [a]}}
+{if:{arg:1}|=|wrong zoom|then:{set:ff|-vf "split=2[0][1];
+[0]setpts=PTS/0.95,fps=$fr[m];
+[1]scale=iw/2:ih/2[o];
+[m][o]overlay=$w/4:$h/4" -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-1.00877/12):tempo=0.95[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|committed suicide|then:{set:ff|-vf negate,colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=-151:strength=100,format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(-0.55)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(-0.55)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "rubberband=pitch=2^(-20/12)",atrim=0.01}}
+{if:{arg:1}|=|klasky opusc major|then:{set:ff|-vf selectivecolor=blacks='-1 0 0 1' -af acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100}}
+{if:{arg:1}|=|g major 44 cyrynix|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=90:strength=100,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.65,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p[v]" -af "asplit=4[0][1][2][3];
+[1]rubberband=pitch=0.5[s1];
+[2]rubberband=pitch=2^(-11.7/12)[s2];
+[3]rubberband=pitch=2^(0.3/12)[s3];
+[0][s1][s2][s3]amix=4,volume=4,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|$ormulator|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]huesaturation=hue=180:strength=100,negate,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/LAB_Adjust_-_Invert_Luminosity.cube" -o ./invertluma.cube; echo ./invertluma.cube),scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.35,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p[v]" -af "asplit=3[0][1][2];
+[0]rubberband=pitch=0.5[s1];
+[1]rubberband=pitch=2^(7/12)[s2];
+[2]rubberband=pitch=2^(16/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|miracle major 1|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,format=yuv444p,scale=640:480,"geq='p((X-sin(-0.628+Y*1.6/100)*25),(Y+sin(0.628+X*1.6/100)*25))'",scale=$w:$h,format=yuv420p -af "asplit=4[0][1][2][3];
+[0]rubberband=pitch=2^(-0.4/12)[s1];
+[1]rubberband=pitch=2^(-0.1/12)[s2];
+[2]rubberband=pitch=2^(0.1/12)[s3];
+[3]rubberband=pitch=2^(0.4/12)[s4];
+[s1][s2][s3][s4]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|duh|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/scanlines.png" -o ./scanlines.png; echo ./scanlines.png) -filter_complex "[0]hue=s=0,curves=r=0/1 0.5/1 1/0:g=0/1 0.5/0 1/0:b=0/1 0.5/0 1/0,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.35,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=gbrp[m];
+[2]scale=$w:$h[o];
+[m][o]blend=all_mode=multiply[v]" -af "vibrato=20:1,vibrato=20:1,vibrato=20:1,vibrato=20:1,vibrato=20:1,chorus=in_gain=1:out_gain=1:delays=100:decays=1:speeds=5:depths=3,chorus=in_gain=1:out_gain=1:delays=100:decays=1:speeds=5:depths=3,aecho=1:1:40:1,aecho=1:1:40:1,aecho=1:1:40:1" -map [v] -map 0:a}}
+{if:{arg:1}|=|for drums|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/For%20drums.wav" -o ./drums.wav; echo ./drums.wav) -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/scanlines.png" -o ./scanlines.png; echo ./scanlines.png) -filter_complex "[0]hue=s=0,curves=r=0/1 0.5/0 1/0:g=0/0 0.5/0 1/1:b=0/0 0.5/0 1/1,format=gbrp[m];
+[2]scale=$w:$h[o];
+[m][o]blend=all_mode=multiply,format=yuv420p[v];
+[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map [v] -map [a]}}
+{if:{arg:1}|=|crazy diamond|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Crazy%20Diamond.cube" -o ./crazy.cube; echo ./crazy.cube),scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.35,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p[v]" -af chorus=in_gain=1:out_gain=1:delays=34.2:decays=1:speeds=1.342:depths=100,chorus=in_gain=1:out_gain=1:delays=34.2:decays=1:speeds=1.342:depths=100,chorus=in_gain=1:out_gain=1:delays=34.2:decays=1:speeds=1.342:depths=100 -map [v] -map 0:a}}
+{if:{arg:1}|=|cute|then:{set:ff|-vf huesaturation=hue=110:strength=100,format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*1))*(1+(-0.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*1))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*1))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*1))*(1+(-0.5)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*1))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*1))*1))'",scale=$w:$h,setsar=1:1,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.25))*(1+(0.75)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.25))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.25))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.25))*(1+(0.75)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.25))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.25))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "rubberband=pitch=2^(4.30145/12)",atrim=0.01}}
+{if:{arg:1}|=|apm group|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Group.wav" -o ./group.wav; echo ./group.wav) -vf hue=s=2,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Infrared.cube" -o ./infrared.cube; echo ./infrared.cube),format=yuv444p,scale=$h:$h,"geq='p((W*0.24)+(X-W*0.24)/(lte((hypot(X-W*0.24,Y-H*0.409)),(min(W,H)*0.5))*(1+(0.75)*2*atan(atan(atan(1-(hypot(X-W*0.24,Y-H*0.409))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.24,Y-H*0.409)),(min(W,H)*0.5))*1),(H*0.409)+(Y-H*0.409)/(lte((hypot(X-W*0.24,Y-H*0.409)),(min(W,H)*0.5))*(1+(0.75)*2*atan(atan(atan(1-(hypot(X-W*0.24,Y-H*0.409))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.24,Y-H*0.409)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p -filter_complex "[0:a]rubberband=pitch=2^(-5/12),aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map "[a]"}}
+{if:{arg:1}|=|g major 91|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/G-Major%2091.cube" -o ./gm91.cube; echo ./gm91.cube) -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-8.13686/12)[s1];
+[2]rubberband=pitch=4[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|something|then:{set:ff|-vf negate,colorchannelmixer=rr=0:rb=1:br=1:bb=0,format=yuv444p,scale=640:480,"geq='p((X-sin(3.065+Y*4.27/100)*24),(Y+sin((T*6.283/$d)+X*1.235/100)*100))'",scale=$w:$h,format=yuv420p -af "rubberband=pitch=2^(-24/12):smoothing=off:transients=crisp",volume=3,acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100}}
+{if:{arg:1}|=|g major 42|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/LAB_Adjust_-_Invert_Luminosity.cube" -o ./lab.cube; echo ./lab.cube),huesaturation=hue=180:strength=100 -af "asplit=4[0][1][2][3];
+[1]rubberband=pitch=2^(-3/12)[s1];
+[2]rubberband=pitch=2^(4/12)[s2];
+[3]rubberband=pitch=2^(7/12)[s3];
+[0][s1][s2][s3]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|g major 400|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]rotate=a=PI/2,colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=106:strength=100,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.35,format=bgr32,hue=b=-0.033[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p,rotate=a=-PI/2,crop=$w/1.4:$h/1.4,scale=$w:$h[v]" -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-5/12)[s1];
+[1]rubberband=pitch=2^(1/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01" -map [v] -map 0:a}}
+{if:{arg:1}|=|throathead weird effect|then:{set:ff|-vf huesaturation=hue=60:strength=100,scroll=0:0:0.2,transpose=1,format=yuv444p,scale=iw:ih,"geq='p(X,(Y+sin(400*T/5+X*11/100)*6))'","geq='p(X,(Y+sin(400*T/5+X*8/100)*8))'","geq='p(X,(Y+sin(400*T/5+X*10/100)*10))'","geq='p(X,(Y+sin(400*T/5+X*5/100)*14))'",scale=iw:ih,format=yuv420p,transpose=2,transpose=1,scroll=h=-0.02,transpose=2 -af "rubberband=pitch=2^(8.84359/12)",atrim=0.01}}
+{if:{arg:1}|=|4ormulator v9|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/4ormulator%20(Factory%209).wav" -o ./4v9.wav; echo ./4v9.wav) -vf format=yuv444p,scale=640:480,"geq='p((X-sin((T*6.283/$d)+Y*5.4/100)*25),(Y+sin((T*6.283/$d)+X*2.7/100)*25))'","geq='p((X-sin(Y*5.4/100)*25),(Y+sin(X*2.7/100)*25))'",scale=$w:$h,format=yuv420p,hue=t*360/$d -filter_complex "[1:a]atrim=0:$d[a]" -map 0:v -map [a]}}
+{if:{arg:1}|=|light plant|then:{set:ff|-vf huesaturation=hue=-60:strength=100,negate,format=yuv444p,scale=$w:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((T*-360/$d)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/1.2)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((T*-360/$d)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/1.2)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(3.86314/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|5th effect dot round 8|then:{set:ff|-vf huesaturation=hue=-60:strength=100,negate,format=yuv444p,scale=$w:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((T*-360/$d)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/1.2)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((T*-360/$d)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/1.2)*3)))'",scale=$w:$h,setsar=1:1,format=yuv420p,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(3.86314/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|simple g major 141|then:{set:ff|-vf eq=brightness=0.393,hue=s=0,curves=r='0/0 1/0':g='0/0 1/1':b='0/0 1/1',transpose=1,format=yuv444p,scale=iw:ih,"geq='p(X,(Y+sin(400*T/5+X*11/100)*6))'","geq='p(X,(Y+sin(400*T/5+X*8/100)*8))'","geq='p(X,(Y+sin(400*T/5+X*10/100)*10))'","geq='p(X,(Y+sin(400*T/5+X*5/100)*14))'",scale=iw:ih,format=yuv420p,transpose=2,transpose=1,scroll=h=-0.04,transpose=2,hflip,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=4[0][1][2][3];
+[0]rubberband=pitch=2^(-8.13686/12)[s1];
+[1]rubberband=pitch=2^(-7.01955/12)[s2];
+[2]rubberband=pitch=2^(-5.82512/12)[s3];
+[3]rubberband=pitch=2^(8.84359/12)[s4];
+[s1][s2][s3][s4]amix=4,volume=4,atrim=0.01"}}
+{if:{arg:1}|=|spectrum diamond|then:{set:ff|-vf negate,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Red%20Tint.cube" -o ./red.cube; echo ./red.cube),hue=t*360/$d -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(1.82404/12)[s1];
+[1]rubberband=pitch=2^(13.82404/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|creepy glow|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Creepy%20Glow.wav" -o ./creepyglow.wav; echo ./creepyglow.wav) -vf hue=s=0,curves=r='0/0 1/0':g='0/1 1/0':b='0/0 1/0' -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,acontrast=100,acontrast=100,acontrast=100,acontrast=100[a]" -map 0:v -map [a]}}
+{if:{arg:1}|=|goter milk|then:{set:ff|-vf huesaturation=hue=-76:strength=100,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Goter%20Milk.cube" -o ./goter.cube; echo ./goter.cube) -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-3.72408/12)[s1];
+[2]rubberband=pitch=2^(-5.82512/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|normal and not angry|then:{set:ff|-vf negate,colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=53:strength=100,format=yuv444p,scale=$h:$h,"geq='p((W*0.5)+(X-W*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(0.375)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1),(H*0.5)+(Y-H*0.5)/(lte((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*(1+(0.375)*2*atan(atan(atan(1-(hypot(X-W*0.5,Y-H*0.5))/(min(W,H)*0.5))^2)))+gt((hypot(X-W*0.5,Y-H*0.5)),(min(W,H)*0.5))*1))'",scale=$w:$h,setsar=1:1,format=yuv420p -af "rubberband=pitch=2^(1/12)",atrim=0.01}}
+{if:{arg:1}|=|robot flip|then:{set:ff|-vf hue=s=0,curves=r='0/0 0.33/1 0.67/1 1/1':g='0/0 0.33/0 0.67/1 1/1':b='0/1 0.33/0 0.67/0 1/1',hflip -af afreqshift=shift=250:order=2}}
+{if:{arg:1}|=|cyan tv|then:{set:ff|-vf colorchannelmixer=rr=0:rb=1:br=1:bb=0,huesaturation=hue=180:strength=100,"split=16[1][2][3][4][5][6][7][8][9][10][11][12][13][14][15][16];
+[1][2][3][4]hstack=4[a];
+[5][6][7][8]hstack=4[b];
+[9][10][11][12]hstack=4[c];
+[13][14][15][16]hstack=4[d];
+[a][b][c][d]vstack=4,scale=iw/4:ih/4" -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-6/12)[s1];
+[1]rubberband=pitch=2^(6/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|scared|then:{set:ff|-vf huesaturation=hue=-130:strength=100,negate,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(200*T/30+X*10/100)*10))'",scale=$w:$h,format=yuv420p -af "asplit=3[0][1][2];
+[0]rubberband=pitch=2^(-3.15641/12)[s1];
+[1]rubberband=pitch=2^(-1.65004/12)[s2];
+[2]rubberband=pitch=2^(6.17488/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|pixel beam|then:{set:ff|-vf "split=2[m][1];
+[1]scale=640:480,pixelize=w=16:h=16,scale=$w:$h,format=rgba,colorchannelmixer=aa=0.5[o];
+[m][o]overlay" -af "rubberband=pitch=2,atrim=0.01,rubberband=pitch=0.5,atrim=0.01,acrusher=bits=24:samples=8:mix=1"}}
+{if:{arg:1}|=|g major 700|then:{set:ff|-vf huesaturation=hue=180:strength=100,negate -af rubberband=pitch=2,volume=3,acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100}}
+{if:{arg:1}|=|is x too bright|then:{set:ff|-vf curves=all='0/0 0.13/0 0.14/1 1/1' -af "asplit=3[0][1][2];
+[0]rubberband=pitch=2^(8.84359/12)[s1];
+[1]rubberband=pitch=2[s2];
+[2]rubberband=pitch=2^(15.86314/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|opposite day|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/X_has_a_opposite_day_sound_effect.wav" -o ./opposite.wav; echo ./opposite.wav) -vf negate,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Red%20Tint.cube" -o ./red.cube; echo ./red.cube),hue=t*360/$d,format=yuv444p,"geq='p(W*0.5+(hypot(X-W*0.5,Y-H*0.5)-sin(N/$fc*PI)*60*sin(2*PI*N/$fc*2-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/75)))*cos(atan2(Y-H*0.5,X-W*0.5)),H*0.5+(hypot(X-W*0.5,Y-H*0.5)+sin(N/$fc*PI)*60*sin(2*PI*N/$fc*2-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/75)))*sin(atan2(Y-H*0.5,X-W*0.5)))'",scale=iw:ih,format=yuv420p -filter_complex "[1:a]atrim=0:$d[a]" -map 0:v -map [a]}}
+{if:{arg:1}|=|going weirdness every|then:{set:ff|-vf format=yuv444p,scale=640:480,"geq='p((X-sin(PI+X*1/100)*(T*100/$d)),Y)'",scale=$w:$h,format=yuv420p -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-8.13686/12)[s1];
+[1]rubberband=pitch=2^(-3.15641/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|g major 9.9|then:{set:ff|-vf huesaturation=hue=180:strength=100,colorchannelmixer=rr=0:rb=1:br=1:bb=0,"crop=iw/2:ih:0:0,split[left][tmp];[tmp]hflip[right];[left][right]hstack" -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-1/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|vicious g major|then:{set:ff|-vf format=yuv444p,scale=640:480,"geq='p((X-sin(1000*T/30+Y*5/100)*10),Y)'","geq='p(X,(Y+sin(0.8+Y*1/100)*100))'",scale=$w:$h,format=yuv420p,negate,huesaturation=hue=180:strength=100 -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-8.13686/12)[s1];
+[1]rubberband=pitch=2^(-3.86314/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|wake up|then:{set:ff|-vf negate,huesaturation=hue=130:strength=100,format=yuv444p,scale=640:480,"geq='p((X-sin(2.19911485751+100*T/30+Y*4/100)*17.5),Y)'",scale=$w:$h,format=yuv420p -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-2.5965/12)[s1];
+[1]rubberband=pitch=2^(8.84359/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|extremely bad trip|then:{set:ff|-vf negate,format=yuv444p,"geq='p(W*0.5+(hypot(X-W*0.5,Y-H*0.5)-sin(N/$fc*PI)*60*sin(2*PI*N/$fc*2-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/75)))*cos(atan2(Y-H*0.5,X-W*0.5)),H*0.5+(hypot(X-W*0.5,Y-H*0.5)+sin(N/$fc*PI)*60*sin(2*PI*N/$fc*2-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/75)))*sin(atan2(Y-H*0.5,X-W*0.5)))'",scale=iw:ih,format=yuv420p -af "rubberband=pitch=2^(-20.27592/12)",atrim=0.01}}
+{if:{arg:1}|=|cancer|then:{set:ff|-vf huesaturation=hue=144:strength=100,negate,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(X*6.285/100)*30.5))'",scale=$w:$h,format=yuv420p -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(-10/12)[s1];
+[2]rubberband=pitch=2^(-6/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|g major kyoobur9000|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/TV%20Simulator.mov" -o ./tvsim.mov; echo ./tvsim.mov) -filter_complex "[0]hue=s=0,curves=r=0/0.35 1/1:g=0/0 1/0:b=0/0 1/0,scale=854:854,format=bgr32[00];[1]crop=iw:ih/1:0:0,scale=854:854,eq=contrast=0.35,format=bgr32,hue=b=-0.033,hflip[x];color=s=854x854:c=#808080,format=bgr32[y];[00][x][y]displace=edge=wrap,scale=$w:$h,setsar=1,format=yuv444p" -af "asplit=7[0][1][2][3][4][5][6];
+[1]rubberband=pitch=2^(-13/12)[s1];
+[2]rubberband=pitch=2^(-10/12)[s2];
+[3]rubberband=pitch=2^(-7/12)[s3];
+[4]rubberband=pitch=2^(-4/12)[s4];
+[5]rubberband=pitch=2^(4/12)[s5];
+[6]rubberband=pitch=2^(7/12)[s6];
+[0][s1][s2][s3][s4][s5][s6]amix=7,volume=7,atrim=0.01"}}
+{if:{arg:1}|=|old tv|then:{set:ff|-i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/scanlines.png" -o ./scanlines.png; echo ./scanlines.png) -filter_complex "[0]hue=h=255:s=2,transpose=1,scroll=-0.075,transpose=2,format=gbrp[m];
+[1]scale=$w:$h[o];
+[m][o]blend=all_mode=multiply,format=yuv420p" -af chorus=in_gain=0.8:out_gain=1:delays=1:decays=1:speeds=0.1:depths=1,chorus=in_gain=0.8:out_gain=1:delays=1:decays=1:speeds=0.1:depths=1,chorus=in_gain=0.8:out_gain=1:delays=1:decays=1:speeds=0.1:depths=1,chorus=in_gain=0.8:out_gain=1:delays=1:decays=1:speeds=0.1:depths=1,chorus=in_gain=0.8:out_gain=1:delays=1:decays=1:speeds=0.1:depths=1,chorus=in_gain=0.8:out_gain=1:delays=1:decays=1:speeds=0.1:depths=1}}
+{if:{arg:1}|=|orange juice|then:{set:ff|-vf huesaturation=hue=130:strength=100,selectivecolor=blacks='-1 -0.8 0 1' -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(3.86314/12)[s1];
+[2]rubberband=pitch=2^(8.84359/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|rainbow|then:{set:ff|-vf hflip,lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/Red%20Tint.cube" -o ./red.cube; echo ./red.cube),hue=t*360/$d -af aecho=in_gain=1:out_gain=1:decays=1:delays=100,aecho=in_gain=1:out_gain=1:decays=1:delays=100,aecho=in_gain=1:out_gain=1:decays=1:delays=100,aecho=in_gain=1:out_gain=1:decays=1:delays=100,volume=0.5}}
+{if:{arg:1}|=|nameless effect 2.0|then:{set:ff|-vf format=yuv444p,scale=640:480,"geq='p((X-sin(50*T/30+X*4/100)*15),(Y+sin(50*T/30+Y*4/100)*15))'","geq='p((X-sin(-50*T/30+X*4/100)*15),(Y+sin(-50*T/30+Y*4/100)*15))'",scale=$w:$h,format=yuv420p -af rubberband=pitch=0.25,atrim=0.01,rubberband=pitch=4,atrim=0.01,rubberband=pitch=0.25,atrim=0.01,rubberband=pitch=4,atrim=0.01,rubberband=pitch=0.25,atrim=0.01,rubberband=pitch=4,atrim=0.01,volume=4}}
+{if:{arg:1}|=|collectiop|then:{set:ff|-vf huesaturation=hue=180:strength=100,format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(-200*T/30+Y*2/100)*20))'",scale=$w:$h,format=yuv420p -af afade=t=in:d=0.4,rubberband='pitch=2^(3/12)',atrim=0.01}}
+{if:{arg:1}|=|swirl embosser|then:{set:ff|-vf format=yuv444p,scale=$h:$h,"geq='p(W*0.5+hypot(X-W*0.5,Y-H*0.5)*cos(atan2(Y-H*0.5,X-W*0.5)+((150)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)),H*0.5+hypot(X-W*0.5,Y-H*0.5)*sin(atan2(Y-H*0.5,X-W*0.5)+((150)/180*PI*2)*gauss(-(hypot(X-W*0.5,Y-H*0.5)/min(W,H)/0.5)*3)))'",scale=$w:$h,setsar=1:1,format=gbrp,"split=2[0][1];
+[0]negate[m];
+[1]convolution=-2 -1 0 -1 1 1 0 1 2:-2 -1 0 -1 1 1 0 1 2:-2 -1 0 -1 1 1 0 1 2:-2 -1 0 -1 1 1 0 1 2[o];
+[m][o]blend=all_opacity=0.5,format=yuv420p" -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(-2/12),atrim=0.01,aecho=1:1:7.5:1,aecho=1:1:7.5:1,aecho=1:1:7.5:1,aecho=1:1:7.5:1,volume=0.3[s1];
+[1]rubberband=pitch=2^(5/12),atrim=0.01,aecho=1:1:4:1,aecho=1:1:4:1,aecho=1:1:4:1,aecho=1:1:4:1,volume=0.3[s2];
+[s1][s2]amix=2,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|blurred pastel wrinkles|then:{set:ff|-vf selectivecolor=reds='0 0 -0.7 1',frei0r=squareblur:0.05,format=yuv444p,scale=640:480,"geq='p(W*0.5+(hypot(X-W*0.5,Y-H*0.5)+20*sin(2*PI*2*T-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/30)))*cos(atan2(Y-H*0.5,X-W*0.5)),H*0.5+(hypot(X-W*0.5,Y-H*0.5)+20*sin(2*PI*2*T-(0)+(-(hypot(X-W*0.5,Y-H*0.5))/30)))*sin(atan2(Y-H*0.5,X-W*0.5)))'",scale=$w:$h,format=yuv420p -af "rubberband=pitch=2^(-5.70102/12)",atrim=0.01}}
+{if:{arg:1}|=|virus voice|then:{set:ff|-vf movie=$(magick hald:6 -color-matrix "0 0 1 0 1 0 1 0 0" -modulate 100,100,266.6 virus-voice.ppm; echo virus-voice.ppm),[in]haldclut,scroll=0:0:0.5,frei0r=mirr0r:0.5 -af "rubberband=pitch=2^(-30/12)",atrim=0.01}}
+{if:{arg:1}|=|daniel louie major|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Daniel%20Louie%20Major.wav" -o ./daniel.wav; echo ./daniel.wav) -vf hue=s=0,"curves=r=0/1 0.5/0 1/0:g=0/1 0.5/0.39215686274509803 1/1:b=0/1 0.5/0.8823529411764706 1/1",format=yuv444p,scale=640:480,"geq='p(X,(Y+sin(X*(T*10.65/$d)/100)*(T*25/$d)))'",scale=$w:$h,format=yuv420p -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16[a]" -map 0:v -map [a]}}
+{if:{arg:1}|=|g major 22|then:{set:ff|-vf lut3d=$(curl -s "https://file.garden/aftNWz23iVucvdJ5/G-Major%2022.cube" -o ./gm22.cube; echo ./gm22.cube) -af "asplit=3[0][1][2];
+[1]rubberband=pitch=2^(10.17596/12)[s1];
+[2]rubberband=pitch=2^(20.17596/12)[s2];
+[0][s1][s2]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|g major 54|then:{set:ff|-vf lutrgb=r=negval:g=negval,hue=s=0,curves=r='0/0 0.5/1 1/1':g='0/0 0.5/0 1/1':b='0/0 0.5/0 1/1' -af "asplit=3[0][1][2];
+[0]rubberband=pitch=2^(5/12)[s1];
+[1]rubberband=pitch=2^(10/12)[s2];
+[2]rubberband=pitch=2^(14/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|modern g major 22|then:{set:ff|-stream_loop -1 -i $(curl -s "https://file.garden/aftNWz23iVucvdJ5/Clearer.wav" -o ./clearer.wav; echo ./clearer.wav) -vf movie=$(magick hald:6 -colorspace lab -channel r -negate lab.ppm; echo lab.ppm),[in]haldclut,frei0r=gateweave:'0|2|2',crop=$w/1.1:$h/1.1,scale=$w:$h -filter_complex "[0:a]aresample=44100,volume=0.015,highpass=0,acrusher=bits=32:samples=1:mix=1,aderivative,lowpass=3200,rubberband=pitch=2^(0/12)[mod];[1:a]aresample=320000[carr];[mod][carr]anlms=out_mode=e:order=4800:mu=1:leakage=0.0015:eps=0.005:precision=float[voc];[voc]volume=32,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,aphaseshift=shift=1:order=16,rubberband=pitch=2^(-2/12),acontrast=100,acontrast=100,acontrast=100,acontrast=100,acontrast=100[a]" -map 0:v -map "[a]"}}
+{if:{arg:1}|=|annoying|then:{set:ff|-vf negate,huesaturation=hue=180:strength=100:saturation=0.5,format=yuv444p,scale=640:480,"geq='p((X-sin(50*T/30+X*4/100)*2.5),(Y+sin(50*T/30+Y*4/100)*2.5))'","geq='p((X-sin(-50*T/30+X*4/100)*2.5),(Y+sin(-50*T/30+Y*4/100)*2.5))'",scale=$w:$h,format=yuv420p,exposure=-1.261:0.5,eq=gamma=2,curves=all='0/0 0.2/0 0.8/1 1/1' -af "asplit=3[1][2][3];
+[1]rubberband=pitch=2^(-2/12)[s1];
+[2]rubberband=pitch=2^(2/12)[s2];
+[3]rubberband=pitch=2^(5/12)[s3];
+[s1][s2][s3]amix=3,volume=3,atrim=0.01"}}
+{if:{arg:1}|=|sponge|then:{set:ff|-vf hue=s=0,"curves=r=0/1 0.3333333333333333/1 0.6666666666666666/0 1/0.20392156862745098:g=0/0.6901960784313725 0.3333333333333333/1 0.6666666666666666/0.7294117647058823 1/1:b=0/0 0.3333333333333333/0 0.6666666666666666/1 1/1",drawtext=fontfile=/usr/share/fonts/truetype/arial/Arial-Black.ttf:timecode='00\\:00\\:00\\.00:rate=30:text_align=R:fontcolor=white:fontsize=w/24:box=1:boxcolor=black:boxborderw=7*(text_h):x=(w-text_w)/1.1:y=(h-text_h)/1.12' -af "asplit=2[0][1];
+[0]rubberband=pitch=2^(3/12)[s1];
+[1]rubberband=pitch=2^(9/12)[s2];
+[s1][s2]amix=2,volume=2,atrim=0.01"}}
+{if:{arg:1}|=|91-dxi|then:{set:ff|-vf movie=$(magick hald:6 -modulate 100,190,140 -negate dxi.ppm; echo dxi.ppm),[in]haldclut,frei0r=gateweave:'0|0|0.5' -af "asplit=2[0][1];
+[1]rubberband=pitch=2^(-3.5/12)[s1];
+[0][s1]amix=2,volume=2,atrim=0.01"}}}
+{if:{arg}|=|iscript|then:
+{if:{arg:1}|=|invert hsl|then:{set:ff|hueshifthsv # 180}}
+{if:{arg:1}|=|invert ccs|then:{set:ff|hueshifthsvffmpeg # 180}}
+{if:{arg:1}|=|invert rgb|then:{set:ff|swaprgba # bgr}}
+{if:{arg:1}|=|invert|then:{set:ff|invert #}}
+{if:{arg:1}|=|confusion|then:{set:ff|hueshifthsv # 180
+invert #
+haah #
+audioreverse #}}
+{if:{arg:1}|=|g major|invert #
+copy # a
+copy a a2
+copy a a3
+copy a a4
+copy a a5
+copy a a6
+audiopitch a2 0.5
+audiopitch a3 2**(-5/12)
+audiopitch a4 2**(4/12)
+audiopitch a5 2**(7/12)
+audiopitch a6 2
+audioputmix a a2
+volume a
+audioputmix a a3
+volume a
+audioputmix a a4
+volume a
+audioputmix a a5
+volume a
+audioputmix a a6
+volume a
+repeatduration a #d
+audioputreplace # a}}
+}
+
+
+
+{if:{arg}|=|help|then:{embedjson:
+{"color":16755370,
+"title":"NFX3 - HELP",
+"description":"**NFX3** (**N**itrogen's Effects [**FX**] **3**.0) is an FFmpeg/iscript effect tool made by nitrogen.\ndevelopment started on April 21 2026, Central European Summer Time\ncurrent version: 3.1b\ndevelopers: nitrogen\npartnering with TheKlaskyOrangeEffect136's effect tag, **OEFX+**\nspecial thanks to That Miracle Editor 1999, MediaNapoleon and OBLTOT513\n\n**COMMANDS**\n - `.t nfx3 \"effect name\"` - applies an effect. make sure you check .t nfx3/list on pages 1, 2 and 3.\n - `.t nfx3 \"effect name\" raw` - shows an effect's FFmpeg code - useful for tags like `icf+`. to show the audio codec, use `.t nfx3 \"effect name\" raw showcodec`, since icf+ audio will cause clipping if unspecified.\nenjoy using this effect bot!",
+"footer":{"text":"NFX3","icon_url":"https://file.garden/aftNWz23iVucvdJ5/d134a3151dd597402f051faf8d0886c2.3dcc984a.png"}}
+}}
+
+{if:{get:banCheck}|=|true|then:{js:console.error(`you have been banned from using NFX3.\ndeleting the ban code will still make NFX3 unusable for you, because of the anti-piracy.`)}}
+
+{if:{arg:2}|=|raw|then:{code:{get:ff}}
+{embedjson:
+{"title":"RAW EFFECT DATA",
+"color":11206570,
+"footer":{"text":"NFX3","icon_url":"https://file.garden/aftNWz23iVucvdJ5/d134a3151dd597402f051faf8d0886c2.3dcc984a.png"}}
+}}
+
+{if:{get:excCheck}|!=|true|then:{if:{tagname}|=|nfx3|then:{if:{arg:2}|!=|raw|then:{if:{arg}|=|ffmpeg|then:{sh:
+load {av}
+vidlen=$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv="p=0")
+d=$vidlen
+sr=$(ffprobe -v error -select_streams a:0 -show_entries stream=sample_rate -of default=nokey=1:noprint_wrappers=1 "$FILE_1" | tr -d '\n')
+fr=$(ffprobe -v error -select_streams v:0 -show_entries stream=r_frame_rate -of default=nokey=1:noprint_wrappers=1 $FILE_1)
+w=$(ffprobe -v error -select_streams v:0 -show_entries stream=width -of default=nw=1:nk=1 $FILE_1)
+h=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of default=nw=1:nk=1 $FILE_1)
+fc=$(ffprobe -v error -select_streams v:0 -show_entries stream=nb_frames -of default=nokey=1:noprint_wrappers=1 $FILE_1)
+
+ffmpeg -i $FILE_1 {get:ff} -pix_fmt yuv420p -c:v libx264 -c:a pcm_s16le ./output/NITROFIED.mp4}|else:{if:{arg}|=|iscript|then:{iscript:
+load {iv} #
+get # width w
+get # height h
+get # duration d
+get # framecount fc
+{get:ff}
+render #}}}|else:{if:{arg:2}|=|raw|then:{attach:https://file.garden/aftNWz23iVucvdJ5/NFX3-Raw-Data.png}|else:{attach:https://file.garden/aftNWz23iVucvdJ5/ruby%20bfdi.png}}}}
+{if:{tagname}|=|nfx3|then:{if:{get:excCheck}|!=|true|then:{if:{arg:2}|!=|raw|then:{set:quotes|{choose:the man behind the slaughter|WRONG!!!|noice|We're no strangers to love|quote.nfx3.undefined|Solaris.exe|most complex ffmpeg editing bot (not)|iscript version when|idk what to put here!|if you ever feel useless, just remember. the ban code exists|YOU WOULDN'T STEAL A CAR!|why?|they not like us!|GTA 5|are you purple|i got a girlfriend while i beat sonic wave|Ooops, your files have been encrypted!|do you know ''goat'' means? :face_with_hand_over_mouth:|{choose:OMGGGG|zOMFG|0MFGGGGGG|LOOOOK} **FREE** **{choose:M0NEY USD|ROB0X|VBUCK5|GR33F|L1STP01NTS|NITR0}** IN THIS LINK!!! CLICK!! :point_right: [HERE!!!](<https://staggeringbeauty.io>)|i'm stealing NFX3. ain't nothing you can do about it :rofl::v:|MARIO BUITRON IS MY ETERNAL ENEMY.}}
+{set:time|{math:({unix}-{get:unixtime})/1000}}
+{embedjson:
+{"color":"{range:0|16777215}",
+"title":"{get:resultText}",
+"description":"{get:quotes}\n\n- **EFFECT**: {arg:0} / {arg:1}\n- **CODE USER**: {user} {if:{user}|=|ntirogen|then:(owner)}{if:{user}|=|theklaskyorangeeffect136|then:(partner)}\n- **TIME SPENT PROCESSING: {get:time}**",
+"footer":{"text":"NFX3","icon_url":"https://file.garden/aftNWz23iVucvdJ5/d134a3151dd597402f051faf8d0886c2.3dcc984a.png"}}}}}|else:# :warning: UNAUTHORIZED}}}}}|{embedjson:
+{"title":"❌ ERROR",
+"description":"{if:{tagname}|!=|nfx3|then:**you're using a stolen version of NFX3 - the creator, {mention:ntirogen}, has been notified.**|else:{if:{get:banCheck}|=|true|then:**nitrogen has banned you from using NFX3 and all of its aliases.**|else:an error has occurred. NFX3 has been halted because of it.\npossible causes include **long processing time**, **math equation timing out** or **the process timing out**.\ntry entering your command again if possible: `.t nfx3 {arg:0} \"{arg:1}\" {arg:2} {arg:3}`}}",
+"color":"{math:0xaaffaa}",
+"footer":{"text":"NFX3","icon_url":"https://file.garden/aftNWz23iVucvdJ5/d134a3151dd597402f051faf8d0886c2.3dcc984a.png"}}
+}}
