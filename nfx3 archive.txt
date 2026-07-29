@@ -1,4 +1,4 @@
-{iferror:{if:{tagname}|!=|nfx3|then:{js:console.error(`||<@1456643104944685158>|| you are currently using a stolen version of NFX3. the owner has been notified that you're trying to steal it. therefore, you get a warning.\ntrying to remove this message will only land you a permanent ban from NFX3.`)}|else:{if:{user}|=|indiaflag7|then:{js:console.error(`<@1456643104944685158> special ban message just for you :joy::v:`)}|else:{if:{argslen}|=|0|then:{embedjson:
+{iferror:{if:{tagname}|!=|arnfx3|then:{js:console.error(`||<@1456643104944685158>|| you are currently using a stolen version of NFX3. the owner has been notified that you're trying to steal it. therefore, you get a warning.\ntrying to remove this message will only land you a permanent ban from NFX3.`)}|else:{if:{user}|=|indiaflag7|then:{js:console.error(`<@1456643104944685158> special ban message just for you :joy::v:`)}|else:{if:{argslen}|=|0|then:{embedjson:
 {"color":"255",
 "title":"NFX3 - HELP",
 "description":"**NFX3** (**N**itrogen's Effects [**FX**] **3**.0) is an FFmpeg effect tool made by nitrogen, and his biggest project since his previous effect tool - **NTFX**.\ndevelopment started on April 21 2026, Central European Summer Time\ncurrent version: 3.2\ndevelopers: nitrogen\npartnering with **arfx**\n\nlogo by **Ariv92**\nspecial thanks to That Miracle Editor 1999, MediaNapoleon, OBLTOT513, Aalinex Studio and Durple\n\n**COMMANDS**\n - `.t nfx3 \"effect name\"` - applies an effect. make sure you check .t nfx3/list on pages 1, 2, 3 and 4.\n - `.t nfx3 \"effect name\" raw` - shows an effect's FFmpeg code - useful for tags like `icf+`. to show the audio codec, use `.t nfx3 \"effect name\" raw codec`, since icf+ audio will cause clipping if unspecified.\nenjoy using this effect bot!",
@@ -1325,7 +1325,7 @@ movie=$(magick hald:6 -colorspace lab -channel r -negate lab.ppm; echo lab.ppm)[
 
 
 
-{if:{tagname}|!=|nfx3|then:{js:console.error(`||<@1456643104944685158>|| you are currently using a stolen version of NFX3. the owner has been notified that you're trying to steal it. therefore, you get a warning.\ntrying to remove this message will only land you a permanent ban from NFX3.`)}}
+{if:{tagname}|!=|arnfx3|then:{js:console.error(`||<@1456643104944685158>|| you are currently using a stolen version of NFX3. the owner has been notified that you're trying to steal it. therefore, you get a warning.\ntrying to remove this message will only land you a permanent ban from NFX3.`)}}
 
 
 
@@ -1347,7 +1347,7 @@ movie=$(magick hald:6 -colorspace lab -channel r -negate lab.ppm; echo lab.ppm)[
 "footer":{"text":"NFX3","icon_url":"https://file.garden/aftNWz23iVucvdJ5/nfx3%20new%20logo.png"}}
 }}
 
-{if:{get:excCheck}|!=|true|then:{if:{tagname}|=|nfx3|then:{if:{arg:1}|!=|raw|then:{sh:
+{if:{get:excCheck}|!=|true|then:{if:{tagname}|=|arnfx3|then:{if:{arg:1}|!=|raw|then:{sh:
 load {av}
 vidlen=$(ffprobe -i $FILE_1 -show_entries format=duration -v quiet -of csv="p=0")
 d=$vidlen
@@ -1358,5 +1358,5 @@ h=$(ffprobe -v error -select_streams v:0 -show_entries stream=height -of default
 fc=$(ffprobe -v error -select_streams v:0 -show_entries stream=nb_frames -of default=nokey=1:noprint_wrappers=1 $FILE_1)
 
 ffmpeg -i $FILE_1 {get:ff} -pix_fmt yuv420p -c:v libx264 -c:a flac -ac 1 -ar 44100 -c:a pcm_s16le ./output/nitrofied_$(basename $FILE_1)}|else:{if:{arg:1}|=|raw|then:** **|else:{attach:https://file.garden/aftNWz23iVucvdJ5/ruby%20bfdi.png}}}}
-{if:{tagname}|=|nfx3|then:{if:{get:excCheck}|!=|true|then:{if:{arg:1}|!=|raw|then:{set:quotes|{choose:the man behind the slaughter|WRONG!!!|noice|We're no strangers to love|quote.nfx3.undefined|Solaris.exe|most complex ffmpeg editing bot (not)|iscript had to be removed sorry :(|idk what to put here!|if you ever feel useless, just remember. the ban code exists|YOU WOULDN'T STEAL A CAR!|why?|they not like us!|GTA 5|are you purple|i got a girlfriend while i beat sonic wave|Ooops, your files have been encrypted!|do you know ''goat'' means? :face_with_hand_over_mouth:|{choose:OMGGGG|zOMFG|0MFGGGGGG|LOOOOK} **FREE** **{choose:M0NEY USD|ROB0X|VBUCK5|GR33F|L1STP01NTS|NITR0|SCAM TUT0RI4L}** IN THIS LINK!!! CLICK!! :point_right: [HERE!!!](<https://staggeringbeauty.io>)|i'm stealing NFX3. ain't nothing you can do about it :rofl::v:|i got {range:10|99}% on {get:gdlevels}|**FIRST WARNING**|yup you're banned|also try ArFX!}}
-archive}}|else:# :warning: UNAUTHORIZED}}}}}|your NFX3 ran into an error. this error message had an embedjson, but it had to be removed because of technical difficulties. {if:{tagname}|!=|nfx3|then:you stole it. you must sacrifice yourself to the ban. if you think you can avoid the ban, the owner is notified: {mention:ntirogen}}{if:{get:fxCheck}|=|false|then:this effect has not been recognized by NFX3: {arg:0}\nDM ntirogen to add an effect.|else:either it took too long, failed to process the effect, etc.}}
+{if:{tagname}|=|arnfx3|then:{if:{get:excCheck}|!=|true|then:{if:{arg:1}|!=|raw|then:{set:quotes|{choose:the man behind the slaughter|WRONG!!!|noice|We're no strangers to love|quote.nfx3.undefined|Solaris.exe|most complex ffmpeg editing bot (not)|iscript had to be removed sorry :(|idk what to put here!|if you ever feel useless, just remember. the ban code exists|YOU WOULDN'T STEAL A CAR!|why?|they not like us!|GTA 5|are you purple|i got a girlfriend while i beat sonic wave|Ooops, your files have been encrypted!|do you know ''goat'' means? :face_with_hand_over_mouth:|{choose:OMGGGG|zOMFG|0MFGGGGGG|LOOOOK} **FREE** **{choose:M0NEY USD|ROB0X|VBUCK5|GR33F|L1STP01NTS|NITR0|SCAM TUT0RI4L}** IN THIS LINK!!! CLICK!! :point_right: [HERE!!!](<https://staggeringbeauty.io>)|i'm stealing NFX3. ain't nothing you can do about it :rofl::v:|i got {range:10|99}% on {get:gdlevels}|**FIRST WARNING**|yup you're banned|also try ArFX!}}
+archive}}|else:# :warning: UNAUTHORIZED}}}}}|your NFX3 ran into an error. this error message had an embedjson, but it had to be removed because of technical difficulties. {if:{tagname}|!=|arnfx3|then:you stole it. you must sacrifice yourself to the ban. if you think you can avoid the ban, the owner is notified: {mention:ntirogen}}{if:{get:fxCheck}|=|false|then:this effect has not been recognized by NFX3: {arg:0}\nDM ntirogen to add an effect.|else:either it took too long, failed to process the effect, etc.}}
